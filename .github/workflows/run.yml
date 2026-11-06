@@ -1,0 +1,277 @@
+# One oss-fw-ci run (docs/DESIGN.md, docs/architecture.md): the four
+# components from the inputs (empty: the baseline pin), built with the
+# run's fingerprint, the pinned test rootfs (cached), the pinned suite on
+# every board, results on gh-pages.
+#   resolve  arm64 2c: inputs checked and pinned to commits, run document
+#            created and published (writes gh-pages; runs nothing of the
+#            inputs).
+#   rootfs   xeon: the pinned qcom-buildroot test image, once per cache key.
+#   build    xeon, per board: OP-TEE, U-Boot, Linux, TF-A + FIP, ESP,
+#            rootfs partition, package. Runs the code under test: no
+#            environment, no secret, read-only token not kept in the checkout.
+#   submit   arm64 2c, environment lava-hw: BL2 from the private store,
+#            upload, the job from the one template, submit.
+#   track    arm64 2c, environment lava-hw: monitor, collect and publish
+#            every 5 minutes until every board is final.
+#   finalize arm64 2c, only after a cancel or a failure: closes the run
+#            document so the dashboard never shows it running for ever.
+# No GitHub-hosted runner: every job is a CIL lease (cil-gha-bridge).
+name: run
+
+on:
+  workflow_dispatch:
+    inputs:
+      tfa:
+        description: "TF-A: owner/repo@ref or gerrit:<change>[/<ps>] (empty: baseline)"
+        default: ""
+      optee:
+        description: "OP-TEE: owner/repo@ref or pr:<number> (empty: baseline)"
+        default: ""
+      uboot:
+        description: "U-Boot: owner/repo@ref or lore:<message-id> (empty: baseline)"
+        default: ""
+      linux:
+        description: "Linux: owner/repo@ref or lore:<message-id> (empty: baseline)"
+        default: ""
+      boards:
+        description: "boards, space separated (empty: all)"
+        default: ""
+      title:
+        description: "title for the dashboard"
+        default: ""
+      requester:
+        description: "agent or person (empty: the actor)"
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: run-${{ github.run_id }}
+
+env:
+  CI_RUN: scripts/in-container.sh
+  RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+  OSSCI_IMAGE: ossci-control:1
+
+jobs:
+  resolve:
+    runs-on: [self-hosted, cil, arm64, 2c-4g-20g]
+    permissions:
+      contents: write
+    outputs:
+      boards: ${{ steps.new.outputs.boards }}
+      go: ${{ steps.new.outputs.go }}
+      td: ${{ steps.new.outputs.td }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --network host -q --target control -t ossci-control:1 docker
+      - id: new
+        name: Resolve the inputs and publish the run document
+        env:
+          TFA: ${{ inputs.tfa }}
+          OPTEE: ${{ inputs.optee }}
+          UBOOT: ${{ inputs.uboot }}
+          LINUX: ${{ inputs.linux }}
+          BOARDS: ${{ inputs.boards }}
+          TITLE: ${{ inputs.title }}
+          REQUESTER: ${{ inputs.requester || github.actor }}
+        run: |
+          mkdir -p work
+          $CI_RUN python3 -m ossci.refs work/resolved.json --tfa "$TFA" --optee "$OPTEE" --uboot "$UBOOT" --linux "$LINUX"
+          $CI_RUN python3 -m ossci.run new "work/$RUN_ID.json" --id "$RUN_ID" --inputs work/resolved.json \
+            --boards "$BOARDS" --title "$TITLE" --requester "$REQUESTER" \
+            --ci-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          # A pin that cannot be fetched publicly skips the run, with the reason.
+          why=$($CI_RUN python3 -m ossci.preflight work/resolved.json)
+          if [ -n "$why" ]; then
+            $CI_RUN python3 -m ossci.run skip "work/$RUN_ID.json" "$why"
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "boards=$($CI_RUN python3 -c 'import json,sys; print(json.dumps([t["board"] for t in json.load(open(sys.argv[1]))["targets"]]))' "work/$RUN_ID.json")" >> "$GITHUB_OUTPUT"
+          echo "td=$($CI_RUN python3 -m ossci.config top suite commit)" >> "$GITHUB_OUTPUT"
+          $CI_RUN scripts/site-checkout.sh site
+          $CI_RUN scripts/publish-site.sh site "work/$RUN_ID.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: run
+          path: |
+            work/resolved.json
+            work/${{ env.RUN_ID }}.json
+          retention-days: 7
+
+  rootfs:
+    needs: resolve
+    if: needs.resolve.outputs.go == 'true'
+    runs-on: [self-hosted, cil, 32c-32g-200g]
+    timeout-minutes: 480
+    permissions:
+      contents: read
+    env:
+      OSSCI_IMAGE: ossci-rootfs:1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - id: key
+        run: |
+          docker build --network host -q --target control -t ossci-control:1 docker
+          echo "key=rootfs-$(OSSCI_IMAGE=ossci-control:1 $CI_RUN python3 -c 'import json,subprocess,sys; print(json.loads(subprocess.check_output([sys.executable,"-m","ossci.rootfs","key",sys.argv[1],"arm64"]))["id"])' "${{ needs.resolve.outputs.td }}")" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: cache
+        with:
+          path: work/out/rootfs
+          key: ${{ steps.key.outputs.key }}
+      - name: Build the pinned test rootfs
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          docker build --network host -q --target rootfs -t ossci-rootfs:1 docker
+          $CI_RUN scripts/build-rootfs.sh arm64 "${{ needs.resolve.outputs.td }}" work/out/rootfs
+      - uses: actions/cache/save@v4
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: work/out/rootfs
+          key: ${{ steps.key.outputs.key }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rootfs
+          path: |
+            work/out/rootfs/rootfs.cpio.gz
+            work/out/rootfs/rootfs.json
+            work/out/rootfs/manifest-synced.xml
+          retention-days: 3
+
+  build:
+    needs: [resolve, rootfs]
+    runs-on: [self-hosted, cil, 32c-32g-200g]
+    timeout-minutes: 240
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        board: ${{ fromJSON(needs.resolve.outputs.boards) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: run
+          path: work/run
+      - uses: actions/download-artifact@v4
+        with:
+          name: rootfs
+          path: work/rootfs
+      - name: Build every component and the package
+        env:
+          BOARD: ${{ matrix.board }}
+        run: |
+          docker build --network host -q --target build -t ossci-build:1 docker
+          OSSCI_IMAGE=ossci-build:1 $CI_RUN scripts/td-checkout.sh work/td
+          fp=$(OSSCI_IMAGE=ossci-build:1 $CI_RUN python3 -c 'import json,sys; print([t["fingerprint"] for t in json.load(open(sys.argv[1]))["targets"] if t["board"]==sys.argv[2]][0])' "work/run/$RUN_ID.json" "$BOARD")
+          OSSCI_IMAGE=ossci-build:1 $CI_RUN scripts/build-board.sh work/run/resolved.json "$BOARD" "$fp" work/rootfs work/td work/out
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: build-${{ matrix.board }}
+          path: |
+            work/out/*.qcomflash.tar.gz
+            work/out/*.build.json
+            work/out/${{ matrix.board }}/*.log
+            work/out/${{ matrix.board }}/*.err
+            work/out/${{ matrix.board }}/*.json
+            work/out/${{ matrix.board }}/*.config
+          retention-days: 3
+
+  submit:
+    needs: [resolve, rootfs, build]
+    if: ${{ !cancelled() && needs.resolve.result == 'success' && needs.resolve.outputs.go == 'true' }}
+    runs-on: [self-hosted, cil, arm64, 2c-4g-20g]
+    environment: lava-hw
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      LAVA_TOKEN: ${{ secrets.LAVA_TOKEN }}
+      OSSCI_PRIVATE_TOKEN: ${{ secrets.OSSCI_PRIVATE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: work/artifacts
+      - name: Record the builds, submit to LAVA, publish
+        run: |
+          docker build --network host -q --target control -t ossci-control:1 docker
+          doc=work/artifacts/run/$RUN_ID.json
+          [ -f work/artifacts/rootfs/rootfs.json ] && $CI_RUN python3 -m ossci.run rootfs "$doc" work/artifacts/rootfs/rootfs.json
+          mkdir -p work/packages
+          for b in $(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))))' '${{ needs.resolve.outputs.boards }}'); do
+            f=work/artifacts/build-$b/$b.build.json
+            if [ -f "$f" ]; then
+              $CI_RUN python3 -m ossci.run built "$doc" "$b" "$f"
+              mv work/artifacts/build-$b/$b.qcomflash.tar.gz work/packages/ 2>/dev/null || true
+            fi
+          done
+          $CI_RUN scripts/td-checkout.sh work/td
+          $CI_RUN python3 -m ossci.run submit "$doc" work/packages work/td
+          $CI_RUN scripts/site-checkout.sh site
+          $CI_RUN scripts/publish-site.sh site "$doc"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: submitted
+          path: work/artifacts/run/${{ env.RUN_ID }}.json
+          retention-days: 7
+
+  track:
+    needs: [resolve, submit]
+    if: ${{ !cancelled() && needs.submit.result == 'success' }}
+    runs-on: [self-hosted, cil, arm64, 2c-4g-20g]
+    environment: lava-hw
+    timeout-minutes: 600
+    permissions:
+      contents: write
+    env:
+      LAVA_TOKEN: ${{ secrets.LAVA_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: submitted
+          path: work/run
+      - name: Monitor, collect and publish until every board is final
+        run: |
+          docker build --network host -q --target control -t ossci-control:1 docker
+          doc=work/run/$RUN_ID.json
+          $CI_RUN scripts/site-checkout.sh site
+          # The board's baseline: the latest nightly in the published index.
+          until $CI_RUN python3 -m ossci.run finished "$doc"; do
+            $CI_RUN python3 -m ossci.run monitor "$doc" || echo "monitor failed, retrying"
+            $CI_RUN python3 -m ossci.run collect "$doc" --baseline-site site || echo "collect failed, retrying"
+            $CI_RUN scripts/publish-site.sh site "$doc" || echo "publish failed, retrying"
+            $CI_RUN python3 -m ossci.run finished "$doc" || sleep 300
+          done
+          $CI_RUN scripts/publish-site.sh site "$doc"
+
+  finalize:
+    needs: [resolve, rootfs, build, submit, track]
+    if: ${{ cancelled() || (failure() && needs.track.result != 'success') }}
+    runs-on: [self-hosted, cil, arm64, 2c-4g-20g]
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      CONCLUSION: ${{ contains(needs.*.result, 'cancelled') && 'cancelled' || 'failure' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Close the run document
+        run: |
+          docker build --network host -q --target control -t ossci-control:1 docker
+          $CI_RUN scripts/site-checkout.sh site
+          doc=site/results/$RUN_ID.json
+          [ -f "$doc" ] || { echo "no run document published"; exit 0; }
+          mkdir -p work && cp "$doc" "work/$RUN_ID.json"
+          $CI_RUN python3 -m ossci.run close "work/$RUN_ID.json" "$CONCLUSION"
+          $CI_RUN scripts/publish-site.sh site "work/$RUN_ID.json"
