@@ -1,0 +1,9 @@
+/work/
+/BRIEF.md
+/HANDOFF.md
+/REPORT.md
+/agent.log
+/launch-when-free.sh
+/GO-NOW
+__pycache__/
+*.pyc
