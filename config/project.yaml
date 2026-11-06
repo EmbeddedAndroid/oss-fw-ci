@@ -1,0 +1,7 @@
+# Tools every board shares and how the CI talks to the lab.
+qtestsign:
+  repo: https://github.com/msm8916-mainline/qtestsign
+  commit: 0eef3b552b1ada848f22bad38ab2e40407307c5b
+lava:
+  url: https://lava.infra.foundries.io
+private_store: EmbeddedAndroid/oss-fw-ci-private

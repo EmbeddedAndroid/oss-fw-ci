@@ -1,0 +1,61 @@
+# The only way a case may end other than pass on a board (docs/DESIGN.md):
+# board, case (<suite>/<name>), the result it is allowed (fail or skip),
+# the reason, an evidence link and the reviewer. A non-pass without an
+# entry is a failure. This list is the port-complete bar: a board is done
+# when its runs pass or are justified case for case.
+# Changes are PRs reviewed by Tyler.
+justifications:
+  - board: rb3gen2
+    case: kvm-unit-tests/gicv2-ipi
+    result: skip
+    reason: the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/gicv2-mmio
+    result: skip
+    reason: the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/gicv2-mmio-up
+    result: skip
+    reason: the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/gicv2-mmio-3p
+    result: skip
+    reason: the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/gicv2-active
+    result: skip
+    reason: the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/mte-sync
+    result: skip
+    reason: Kodiak's Cortex-A78/A55 cores do not implement MTE
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/mte-async
+    result: skip
+    reason: Kodiak's Cortex-A78/A55 cores do not implement MTE
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/mte-asymm
+    result: skip
+    reason: Kodiak's Cortex-A78/A55 cores do not implement MTE
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/adsp
+    result: skip
+    reason: the Linux audio drivers do not survive an ADSP stop (declared expected failure; Linux, not firmware)
+    evidence: https://lava.infra.foundries.io/scheduler/job/540899
+    reviewer: "proposed (Tyler reviews it with this file)"

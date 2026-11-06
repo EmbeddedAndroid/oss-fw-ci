@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://embeddedandroid.github.io/oss-fw-ci/run.schema.json",
+  "title": "ossci-run/1: one oss-fw-ci run",
+  "type": "object",
+  "required": ["schema", "run", "state", "inputs", "suite", "rootfs", "targets"],
+  "additionalProperties": false,
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "state": {"enum": ["queued", "building", "flashing", "testing", "done", "skipped", "error", "cancelled"]},
+    "result": {"enum": ["pass", "fail", "skip", "unknown"]},
+    "input": {
+      "type": "object",
+      "required": ["repo", "commit", "role"],
+      "additionalProperties": false,
+      "properties": {
+        "repo": {"type": "string"},
+        "ref": {"type": "string"},
+        "commit": {"$ref": "#/$defs/sha"},
+        "role": {"enum": ["baseline", "under-test"]},
+        "link": {"type": "string"},
+        "title": {"type": "string"},
+        "pending": {"type": "string", "description": "why this commit cannot be fetched publicly yet"},
+        "series": {"type": "object", "required": ["message_id"], "additionalProperties": false,
+                   "properties": {"message_id": {"type": "string"}, "link": {"type": "string"},
+                                  "title": {"type": "string"}, "patches": {"type": "integer"},
+                                  "applied": {"type": ["boolean", "null"]}, "head": {"$ref": "#/$defs/sha"}}},
+        "input": {"type": "object", "description": "the input as given, parsed (ossci.refs.parse)"}
+      }
+    },
+    "case": {
+      "type": "object",
+      "required": ["suite", "name", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "suite": {"type": "string"},
+        "name": {"type": "string"},
+        "result": {"$ref": "#/$defs/result"},
+        "url": {"type": "string", "description": "LAVA log line that shows the result"},
+        "flake": {"type": "string"},
+        "note": {"type": "string"},
+        "output": {"type": "array", "items": {"type": "string"}},
+        "justified": {"type": "object", "required": ["reason", "evidence", "reviewer"], "additionalProperties": false,
+                      "properties": {"reason": {"type": "string"}, "evidence": {"type": "string"}, "reviewer": {"type": "string"}}}
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["board", "state"],
+      "if": {"properties": {"state": {"enum": ["skipped", "error", "cancelled"]}}},
+      "then": {"required": ["state_detail"], "properties": {"state_detail": {"minLength": 1}}},
+      "additionalProperties": false,
+      "properties": {
+        "board": {"type": "string"},
+        "device_type": {"type": "string"},
+        "state": {"$ref": "#/$defs/state"},
+        "state_detail": {"type": "string"},
+        "queue_position": {"type": ["integer", "null"], "minimum": 0},
+        "fingerprint": {"type": "string"},
+        "bl2": {"type": ["object", "null"], "additionalProperties": false,
+                "properties": {"release": {"type": "string"}, "file": {"type": "string"},
+                               "sha256": {"$ref": "#/$defs/sha256"}, "fingerprint": {"type": "string"}}},
+        "builds": {"type": "object", "description": "per component: fingerprint, sha256 of its images, warnings",
+                   "additionalProperties": {"type": "object"}},
+        "package": {"type": ["object", "null"]},
+        "lava": {"type": ["object", "null"], "required": ["job_id", "url"], "additionalProperties": false,
+                 "properties": {"job_id": {"type": "integer"}, "url": {"type": "string"},
+                                "device": {"type": ["string", "null"]}, "health": {"type": ["string", "null"]}}},
+        "fingerprint_gate": {"enum": ["pass", "fail", "not-run"]},
+        "linux_boot": {"type": "object"},
+        "boot_time": {"type": "object"},
+        "verdict": {"enum": ["pass", "fail", "not-run"], "description": "pass when every case passed or is justified"},
+        "counts": {"type": "object"},
+        "cases": {"type": "array", "items": {"$ref": "#/$defs/case"}},
+        "diff": {"type": "object", "required": ["baseline", "new_fail", "new_pass", "still_fail", "missing", "added"],
+                 "additionalProperties": false,
+                 "properties": {"baseline": {"type": "string"},
+                                "new_fail": {"type": "array", "items": {"type": "string"}},
+                                "new_pass": {"type": "array", "items": {"type": "string"}},
+                                "still_fail": {"type": "array", "items": {"type": "string"}},
+                                "missing": {"type": "array", "items": {"type": "string"}},
+                                "added": {"type": "array", "items": {"type": "string"}}}}
+      }
+    }
+  },
+  "properties": {
+    "schema": {"const": "ossci-run/1"},
+    "run": {
+      "type": "object",
+      "required": ["id", "kind", "created", "updated"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+        "kind": {"enum": ["adhoc", "nightly"]},
+        "title": {"type": "string"},
+        "requester": {"type": "string"},
+        "created": {"type": "string"},
+        "updated": {"type": "string"},
+        "ci_url": {"type": ["string", "null"]},
+        "driver": {"enum": ["workflow", "lease"], "description": "workflow: run.yml; lease: the same stages driven from one CIL lease (docs/setup.md)"},
+        "baseline": {"type": ["string", "null"]}
+      }
+    },
+    "state": {"$ref": "#/$defs/state"},
+    "note": {"type": "string"},
+    "inputs": {"type": "object", "required": ["tfa", "optee", "uboot", "linux"], "additionalProperties": false,
+               "properties": {"tfa": {"$ref": "#/$defs/input"}, "optee": {"$ref": "#/$defs/input"},
+                              "uboot": {"$ref": "#/$defs/input"}, "linux": {"$ref": "#/$defs/input"}}},
+    "suite": {"type": "object", "required": ["repo", "commit", "plan", "exclude"], "additionalProperties": false,
+              "properties": {"repo": {"type": "string"}, "branch": {"type": "string"}, "commit": {"$ref": "#/$defs/sha"},
+                             "plan": {"type": "string"}, "exclude": {"type": "object"}}},
+    "rootfs": {"type": "object", "required": ["repo", "commit", "upstream"], "additionalProperties": false,
+               "properties": {"repo": {"type": "string"}, "commit": {"$ref": "#/$defs/sha"}, "upstream": {"type": "boolean"},
+                              "note": {"type": "string"}, "makefile": {"type": "string"},
+                              "make_args": {"type": "array", "items": {"type": "string"}},
+                              "fingerprint": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha256"},
+                              "key": {"type": "string"}, "manifest": {"type": "object"}}},
+    "targets": {"type": "array", "items": {"$ref": "#/$defs/target"}}
+  }
+}

@@ -1,0 +1,5 @@
+# Kernel error lines the kernel-health checks do not count, as in
+# u-boot-ci (docs/flake-policy.md there): same bar as flakes.yaml. Empty:
+# kernel-health runs with its own IGNORE parameter from the board facts.
+# Changes are PRs reviewed by Tyler.
+errors: []

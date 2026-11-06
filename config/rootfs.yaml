@@ -1,0 +1,36 @@
+# The root filesystem every board boots (docs/DESIGN.md): qcom-buildroot's
+# test image (TEST=y) at one commit, unchanged. The rootfs job checks that
+# the checked-out tree is exactly `commit` with nothing applied
+# (ossci.rootfs check) and refuses anything else; a change goes to
+# qcom-buildroot first, then this pin moves. Built once per
+# (commit, test-definitions commit, makefile) and cached.
+repo: https://github.com/qualcomm-linux/qcom-buildroot.git
+commit: 79369f48964864906e522d024b76a30068599ea7
+# The pin waits on qcom-buildroot's test-config PR (QEMU kvm-unit-tests,
+# tee-shm-reclaim, suspend-idle): until it lands upstream the pin is that
+# branch, which the dashboard marks "not yet upstream".
+upstream: false
+source:
+  # Where the pinned commit can be fetched while it is not upstream.
+  # null: nowhere public yet (the rootfs job then skips every board with
+  # this reason, never with a URL).
+  repo: null
+  branch: qcom-test-suite
+  note: qcom-buildroot qcom-test-suite (test-config PR, not opened yet)
+# repo manifest of the tree; the `build` project is replaced by the
+# pinned checkout.
+manifest: manifests/kodiak.xml
+# Per architecture: the board makefile whose `buildroot` target builds the
+# image, and the make arguments. QCOM_TESTS names every test of the suite
+# (the makefile narrows it by default); the inference model is in the
+# image (MODEL_DIR); the issue text carries the rootfs fingerprint
+# (boot-fingerprint ROOTFS_FINGERPRINT).
+arch:
+  arm64:
+    makefile: kodiak.mk
+    make_args:
+      - TEST=y
+      - QCOM_TESTS=boot-fingerprint boot-handoff cpu-features cpu-hotplug cpufreq-policy kernel-health maxcpus memtest remoteproc-smoke remoteproc-restart fastrpc optee-xtest tee-shm-reclaim alsa-dsp-restart memtester kvm-unit-tests kvm-guest gpu-render video-codec inference suspend-idle
+      - QCOM_TEST_INFERENCE_MODEL=y
+    issue: "OP-TEE embedded distrib for kodiak {fingerprint}"
+    output: out-br/images/rootfs.cpio.gz

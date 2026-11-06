@@ -1,0 +1,39 @@
+# The one test set every board runs (docs/DESIGN.md): the open-boot-stack
+# plan of test-definitions at one commit, minus `exclude`. The job
+# generator (ossci.jobs) takes the list from the plan file at that commit
+# and each definition's steps and default parameters from its own YAML
+# there; a board supplies parameter values (boards.yaml `facts`), never a
+# list of its own. Changes are PRs reviewed by Tyler.
+repo: https://github.com/EmbeddedAndroid/test-definitions.git
+branch: openbootstack-tests
+commit: 81c6b8ef967cf0ee412e860abeeca28e0696745a
+plan: plans/open-boot-stack/open-boot-stack.yaml
+exclude:
+  # Boots its own image (the Arm SystemReady ACS), not the stack under test.
+  systemready-acs: the ACS boots an image of its own, not the stack under test
+  # Need a kernel command line of their own (maxcpus=N, memtest=N): the
+  # plan runs them in jobs of their own, which ossci does not generate yet.
+  maxcpus: needs a job booting with maxcpus=N (not generated yet)
+  memtest: needs a job booting with memtest=N (not generated yet)
+# Where each definition runs in the job: `cold` after the first login,
+# `warm` after the warm reboot (as <name>-after-reboot), `last` after the
+# warm checks, before the poweroff (a resume that never returns must not
+# cost the warm checks). Every definition of the plan that is not
+# excluded runs in `cold` or `last`; ossci.suite refuses anything else.
+phases:
+  warm: [boot-fingerprint, boot-handoff, kernel-health]
+  last: [suspend-idle]
+# Definitions whose job carries an extra file: the QAIRT SDK zip, which
+# the image does not carry (the inference test unpacks it); only added
+# when the board's PUS name a QNN unit.
+resources:
+  qairt:
+    for: inference
+    when_param: {PUS: qnn}
+    url: https://softwarecenter.qualcomm.com/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.42.0.251225/v2.42.0.251225.zip
+    sha256: 1a744ed72a813fc9dd4a29e31b1685f784786102fd45414d74915bb3351ae321
+    path: /qairt/v2.42.0.251225.zip
+    params:
+      QAIRT_ZIP: /lava-ovl/qairt/v2.42.0.251225.zip
+      QAIRT_SHA256: 1a744ed72a813fc9dd4a29e31b1685f784786102fd45414d74915bb3351ae321
+      QAIRT_ROOT: qairt/2.42.0.251225

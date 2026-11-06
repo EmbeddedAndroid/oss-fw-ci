@@ -1,0 +1,28 @@
+# The baseline pin of each component: the integration branches, by
+# commit at a dated tag so a force-push cannot move a pin. An empty run
+# input takes these, so a run that changes one component is an A/B
+# against them. The nightly moves them when it is green (phase 5); until
+# then a move is a PR reviewed by Tyler.
+tfa:
+  repo: https://github.com/EmbeddedAndroid/arm-trusted-firmware
+  ref: qcom/integration-20261102g
+  commit: 95a4c903a8389bd5d264097131a271b96f6349c0
+optee:
+  repo: https://github.com/EmbeddedAndroid/optee_os
+  ref: qcom/integration-20261105
+  commit: b5e5f7a0f85aff4d1da7077370b74f2c63b89394
+uboot:
+  repo: https://github.com/EmbeddedAndroid/u-boot
+  ref: qcom/integration-20261105a
+  commit: 55f4e43a871d787d66ee98ef0d3e605abe3076f4
+linux:
+  # The Kodiak kernel of the latest hand-run RB3 Gen 2 suite (LAVA 540899):
+  # qualcomm-linux/kernel-topics 9226b98151 (the qcom-buildroot kodiak
+  # manifest pin) plus 9 Kodiak commits, not published yet. Until it is
+  # (or the Linux integration branch is), the CI cannot fetch the
+  # baseline Linux: a workflow run needs a `linux` input, and a run on
+  # this pin is driven from a CIL lease holding the tree (docs/setup.md).
+  repo: https://github.com/qualcomm-linux/kernel-topics
+  ref: kodiak-oss-fw-ci-baseline
+  commit: b5e84377bb7a1d0390410c5d73620b340f6a9df9
+  pending: kernel-topics 9226b98151 plus 9 Kodiak commits, not published

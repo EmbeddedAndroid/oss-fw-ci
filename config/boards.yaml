@@ -1,0 +1,109 @@
+# Per board (docs/DESIGN.md): LAVA device type, how each component is
+# built for it, the flash package, signing, the BL2 pin, and the facts the
+# suite's definitions take as parameters. A board names no tests: the
+# suite is config/suite.yaml for every board (ossci.jobs refuses a board
+# entry with a test list).
+boards:
+  rb3gen2:
+    title: Qualcomm RB3 Gen 2
+    soc: QCS6490 (Kodiak)
+    arch: arm64
+    lava:
+      device_type: qcs6490-rb3gen2
+      storage: ufs
+      luns: [0, 1, 2, 3, 4, 5]
+      firehose: prog_firehose_ddr.elf
+      # First line every boot prints from XBL, cold or warm.
+      xbl_marker: "SBL1, End"
+      login_prompt: "buildroot login:"
+      # The lab's own image, flashed at the end of every job.
+      restore:
+        url: https://qli-prod-artifacts.qualcomm.com/qli-prd-foundri-lava-gh-artifacts/health-check/lmp-factory-image-qcm6490.qcomflash.kernelci.tar.gz
+        # A LAVA remote artifact token name (the lab swaps in the secret).
+        header: QLIAuthorization
+        token_name: Q_QLI_S3_TOKEN
+        path: lmp-factory-image-qcm6490-kernelci
+        anchor: {name: uefi_ver, start: "SBL1, End", end: "UEFI Total",
+                 pattern: "UEFI Ver", value: 6.0.240321.BOOT.MXF.1.0.c1-00085-KODIAKLA-1}
+      tags: [display]
+      exclude_devices: ["*-production-*"]
+    tfa:
+      make: [PLAT=rb3gen2, SPD=opteed, DEBUG=0]
+      # BL31 goes into the FIP; BL2 is the pinned image below.
+      image: fip.elf
+      fip_load_addr: "0x9fc00000"
+    optee:
+      platform: qcom-kodiak
+      make:
+        - CFG_USER_TA_TARGETS=ta_arm64
+        - CFG_TEE_CORE_LOG_LEVEL=2
+        - DEBUG=0
+        - CFG_IN_TREE_EARLY_TAS=trusted_keys/f04a0fe7-1f5d-4b9b-abf7-619b85b4ce8c qcom_pas/cff7d191-7ca0-4784-af13-48223b9a4fbe
+    uboot:
+      configs: [qcom_defconfig, tfa-optee.config]
+      device_tree: qcom/qcs6490-rb3gen2
+    linux:
+      # The whole configuration of the Kodiak kernel (MODULES=n: the
+      # rootfs is an initramfs without module autoload), run through
+      # olddefconfig.
+      config: config/kernel/rb3gen2.config
+      dtb: qcom/qcs6490-rb3gen2-el2.dtb
+      cmdline: console=ttyMSM0,115200 qcom_scm.download_mode=1 earlycon
+    package:
+      format: qcomflash
+      # The public downstream boot binaries and CDT (meta-qcom pins, as
+      # u-boot-ci's rb3gen2 board): XBL and the rest of the chain before TF-A.
+      release: QCM6490 boot binaries 00150
+      bootbinaries:
+        - url: https://softwarecenter.qualcomm.com/nexus/generic/product/chip/tech-package/QCM6490_bootbinaries.1.0/qcm6490_bootbinaries.1.0-test-device-public/00150/QCM6490_bootbinaries_00150.zip
+          sha256: f6982fed9eaa546649f53c4aedc960f031123c3b7dac06803dc7dabbff533ee0
+        - url: https://softwarecenter.qualcomm.com/nexus/generic/product/chip/tech-package/QCM6490_bootbinaries.1.0/qcm6490_bootbinaries.1.0-test-device-public/00150/QCM6490_bootbinaries_immutable_00150.zip
+          sha256: 711986b7e8ef86443bdd967c3ca4132b7d3db5ad9b5cfbce71bd09d0079fb7e9
+      cdt:
+        url: https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS6490/cdt/rb3gen2-core-kit.zip
+        sha256: 0fe1c0b4050cf54203203812b2c1f0d9698823d8defc8b6516414a4e5e0c557e
+        file: cdt_core_kit.bin
+      partitions: {conf: platforms/qcs6490-rb3gen2/ufs/partitions.conf}
+      # The ESP (UKI) and the rootfs partition (ext4: test-definitions at
+      # /td, and the LAVA overlays).
+      esp_size_mb: 512
+      rootfs_size_mb: 2048
+    signing:
+      # fip.elf: qtestsign (no secret). tz.mbn: the pinned BL2, already
+      # signed with the OEM TEST key of the public sectools.
+      fip: qtestsign
+    bl2:
+      private: TF-A BL2 of qcom/integration-20261102g, OEM test signed (not redistributable)
+      release: bl2-rb3gen2-QCDFP-261102-526
+      file: tz-rb3gen2.mbn
+      sha256: 29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5
+      fingerprint: QCDFP-261102-526
+    # Banner prefixes the fingerprint gate matches, per stage, and whose
+    # fingerprint each carries: `bl2` (the pinned image's own) or `run`.
+    gate:
+      start: "SBL1, End"
+      end: "Booting Linux on physical CPU"
+      stages:
+        BL2: bl2
+        BL31: run
+        OP-TEE version: run
+        U-Boot: run
+    # Parameter values of the suite's definitions on this board.
+    facts:
+      boot-handoff: {BOOT_CPU: "0x0", CPUS: "8", KVM: vhe, PSCI_MODE: osi}
+      remoteproc-smoke: {DEVICE: adsp cdsp, SKIP: modem wpss, WAIT_TIME: "30"}
+      fastrpc: {TESTS: "adsp:adsp:0:0 cdsp:cdsp:3:0 cdsp-unsigned-pd:cdsp:3:1"}
+      inference: {PUS: "cpu:qnn npu0:qnn-htp:v68:0:cdsp cpu:tflite gpu:tflite-gpu"}
+      alsa-dsp-restart: {REMOTEPROC: adsp}
+      remoteproc-restart:
+        REMOTEPROCS: adsp cdsp
+        SKIP: modem wpss
+        EXPECTED_FAIL: adsp=the Linux audio drivers do not survive an ADSP stop
+      video-codec:
+        DEVICE: aa00000.video-codec
+        DRIVER: qcom-iris
+        DECODERS: h264 hevc vp9
+        ENCODERS: h264 hevc
+        FIRMWARE: /lib/firmware/qcom/vpu/vpu20_p1.mbn
+      kvm-unit-tests: {CPUS: 4-7}
+      suspend-idle: {PSCI_MODE: osi}
