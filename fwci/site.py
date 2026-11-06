@@ -1,0 +1,241 @@
+"""Dashboard data: index.json built from the run documents of a site
+directory (runs/<id>.json). The static page polls index.json and loads
+run documents on demand."""
+import json
+import os
+
+from . import boottime, links, schema
+
+HISTORY = 30
+# Stock reference boots kept per board for the history chart.
+STOCK_HISTORY = 60
+BOOT_KINDS = ("cold", "first", "warm-reset", "warm-reboot")
+RESULT_CHAR = {"pass": "p", "fail": "f", "skip": "s", "unknown": "u"}
+
+
+def load_runs(runs_dir):
+    runs = []
+    for name in sorted(os.listdir(runs_dir)):
+        if name.endswith(".json"):
+            runs.append(schema.check(json.load(open(os.path.join(runs_dir, name)))))
+    return sorted(runs, key=lambda r: r["run"]["created"], reverse=True)
+
+
+def counts(t):
+    c = {"pass": 0, "fail": 0, "skip": 0, "unknown": 0}
+    for case in t.get("cases", []):
+        c[case["result"]] += 1
+    c["flaky"] = sum(1 for case in t.get("cases", []) if case.get("flake"))
+    return c
+
+
+def distance(t):
+    d = [c for c in t.get("components", []) if c.get("upstream")]
+    return {c["name"]: c["upstream"]["distance"] for c in d}
+
+
+def fragments_missing(t):
+    """Optional configs (board fragments) the base did not have, from the
+    component under test: such a cell tests the base without the board's
+    series, which the dashboard says so it never reads as testing it."""
+    return [c["name"] for comp in t.get("components", []) if comp["role"] == "under-test"
+            for c in comp.get("configs", []) if c["optional"] and c["used"] is False]
+
+
+def no_spl(t):
+    """Why an SPL-stack cell ran nothing, for the dashboard: "board" (no
+    SPL config to look for), "upstream" (the nightly base lacks the
+    board's SPL config), "tree" (an ad-hoc tree lacks it) or None; the
+    reason text is the target's state_detail."""
+    detail = t.get("state_detail", "")
+    if t["state"] != "skipped" or "spl" not in t:
+        return None
+    if detail.startswith("no SPL stack for this board"):
+        return "board"
+    if detail.startswith("no upstream SPL"):
+        return "upstream"
+    if detail.startswith("no SPL in the tested tree"):
+        return "tree"
+    return None
+
+
+def stages_of(b):
+    """A boot's stages, compact for the page: stage -> [t, log line,
+    replayed]."""
+    return {k: [v["t"], v["line"], 1 if v["replayed"] else 0] for k, v in b["stages"].items()}
+
+
+def boot_point(run, t, kind):
+    """One boot kind of a target, for the history chart and the bars: the
+    boot it is judged by, with its stages, links and baseline verdict."""
+    bt = t.get("boot_time")
+    b = boottime.representative(bt, kind)
+    if b is None:
+        return None
+    vs = ((bt.get("versus_baseline") or {}).get("kinds") or {}).get(kind) or {}
+    p = {"run": run["run"]["id"], "created": run["run"]["created"], "kind": kind,
+         "job_url": (t.get("lava") or {}).get("url", ""), "device": (t.get("lava") or {}).get("device"),
+         "gate": t.get("fingerprint_gate", "not-run"), "ref_line": b["ref_line"], "last_stage": b["last_stage"],
+         "complete": b["complete"], "reset": b.get("reset"), "linux": boottime.time_of(b, boottime.HEADLINE_STAGE),
+         "stages": stages_of(b), "verdict": vs.get("verdict"), "delta": vs.get("delta"),
+         "threshold": vs.get("threshold"), "compared_stage": vs.get("stage")}
+    if kind == "cold" and bt.get("on_target") and bt["on_target"].get("boot") == bt.get("headline"):
+        p["on_target"] = bt["on_target"]["cases"]
+    return p
+
+
+def boot_cell(run, t):
+    """What a matrix cell shows of the boot time: the cold boot, else the
+    warm reset (labelled as such), to Booting Linux, against the baseline."""
+    for kind in ("cold", "warm-reset"):
+        p = boot_point(run, t, kind)
+        if p is not None:
+            out = {k: p[k] for k in ("kind", "linux", "last_stage", "verdict", "delta", "threshold",
+                                     "compared_stage")}
+            out["linux_replayed"] = p["linux"] is None and boottime.HEADLINE_STAGE in p["stages"]
+            return out
+    return None
+
+
+def stock_history(runs):
+    """Per board, every stock reference boot the runs recorded (each health
+    check once), oldest first, and the median of the newest run's set."""
+    boots, median = {}, {}
+    for r in sorted(runs, key=lambda r: r["run"]["created"]):
+        for board, ref in ((r.get("boot_time_reference") or {}).get("boards") or {}).items():
+            seen = boots.setdefault(board, {})
+            for b in ref["boots"]:
+                seen[b["job"]] = {"job": b["job"], "job_url": b["job_url"], "device": b.get("device"),
+                                  "end_time": b.get("end_time"), "fastboot": b.get("fastboot", False),
+                                  "ref_line": b["ref_line"], "last_stage": b["last_stage"],
+                                  "linux": boottime.time_of(b, boottime.HEADLINE_STAGE), "stages": stages_of(b)}
+            median[board] = {"run": r["run"]["id"], "median": ref.get("median", {}), "jobs": [b["job"] for b in ref["boots"]],
+                             "device_type": ref["device_type"]}
+    return {b: sorted(v.values(), key=lambda x: x["end_time"] or "")[-STOCK_HISTORY:] for b, v in boots.items()}, median
+
+
+def boottime_view(nightlies):
+    """The Boot time section of one base branch: per board, stack and boot
+    kind, the boots of its recent nightlies (oldest first)."""
+    hist = {}
+    for r in reversed(nightlies[:HISTORY]):
+        for t in r["targets"]:
+            for kind in BOOT_KINDS:
+                p = boot_point(r, t, kind)
+                if p is not None:
+                    hist.setdefault(t["board"], {}).setdefault(t["stack"], {}).setdefault(kind, []).append(p)
+    return {"history": hist, "stages": boottime.STAGES, "headline_stage": boottime.HEADLINE_STAGE}
+
+
+def cell(run, t):
+    boot = t.get("linux_boot", {})
+    return {
+        "run": run["run"]["id"],
+        "board": t["board"], "stack": t["stack"],
+        "state": t["state"], "state_detail": t.get("state_detail", ""),
+        "queue_position": t.get("queue_position"),
+        "fingerprint": t.get("fingerprint", ""),
+        "gate": t.get("fingerprint_gate", "not-run"),
+        "boot": boot.get("verdict", "not-run"),
+        "boot_stage": boot.get("stage", "not-reached"),
+        "versus": boot.get("versus_baseline", "unknown"),
+        "boot_url": boot.get("url", ""),
+        "counts": counts(t),
+        "new_fail": len(t.get("diff", {}).get("new_fail", [])),
+        "distance": distance(t),
+        "fragments_missing": fragments_missing(t),
+        "boot_chain": t.get("boot_chain", []),
+        "job_url": (t.get("lava") or {}).get("url", ""),
+        "no_spl": no_spl(t),
+        "spl_in_flight": (t.get("spl") or {}).get("in_flight", []),
+        "boot_time": boot_cell(run, t),
+    }
+
+
+def nightly(nightlies):
+    """The view of one base branch: its latest nightly, the history and
+    the per-case history of its recent nightlies."""
+    latest = nightlies[0] if nightlies else None
+    history, case_history = {}, {}
+    for r in reversed(nightlies[:HISTORY]):
+        for t in r["targets"]:
+            k = "%s/%s" % (t["board"], t["stack"])
+            history.setdefault(k, []).append(cell(r, t))
+            ch = case_history.setdefault(k, {"runs": [], "cases": {}})
+            n = len(ch["runs"])
+            ch["runs"].append(r["run"]["id"])
+            # One character per run, even when LAVA reports a case twice.
+            now = {"%s/%s" % (c["suite"], c["name"]): RESULT_CHAR[c["result"]] for c in t.get("cases", [])}
+            for cid in set(ch["cases"]) | set(now):
+                ch["cases"][cid] = ch["cases"].get(cid, "-" * n) + now.get(cid, "-")
+    return {
+        "latest_nightly": latest["run"]["id"] if latest else None,
+        "matrix": [cell(latest, t) for t in latest["targets"]] if latest else [],
+        "host_checks": latest["host_checks"] if latest else [],
+        "linux": latest.get("linux") if latest else None,
+        "history": history,
+        "case_history": case_history,
+        "boottime": boottime_view(nightlies),
+    }
+
+
+def diffed_cell(r, t):
+    c = cell(r, t)
+    c["diff"] = t.get("diff", {})
+    return c
+
+
+def base_of(r):
+    """The run's base with a link to the exact commit."""
+    b = r["run"]["base"]
+    return dict(b, url=links.commit_url(b["repo"], b["commit"]))
+
+
+def build(runs, default_branch="main"):
+    by_branch = {}
+    for r in runs:
+        if r["run"]["kind"] == "nightly":
+            by_branch.setdefault(r["run"]["base"].get("branch", default_branch), []).append(r)
+    branches = {b: nightly(rs) for b, rs in by_branch.items()}
+    candidates = {}
+    for r in runs:
+        if r["run"]["kind"] == "pin-candidate":
+            for t in r["targets"]:
+                candidates.setdefault(t["board"], {"run": r["run"]["id"], "title": r["run"].get("title", ""),
+                                                   "ci_url": r["run"].get("ci_url"), "state": r["state"],
+                                                   "cells": []})
+                if candidates[t["board"]]["run"] == r["run"]["id"]:
+                    c = cell(r, t)
+                    c["firmware"] = next((x.get("release", "") for x in t.get("components", [])
+                                          if x["role"] == "stock"), "")
+                    candidates[t["board"]]["cells"].append(c)
+    adhoc = [{"run": r["run"]["id"], "title": r["run"].get("title", ""), "created": r["run"]["created"],
+              "ci_url": r["run"].get("ci_url"), "state": r["state"], "base": base_of(r),
+              "baseline": r["run"].get("baseline"), "stack": r["run"].get("stack", []),
+              "cells": [diffed_cell(r, t) for t in r["targets"]]}
+             for r in runs if r["run"]["kind"] == "adhoc"][:HISTORY]
+    default = default_branch if default_branch in branches else next(iter(sorted(branches)), None)
+    stock, stock_median = stock_history(runs)
+    idx = {
+        "stock_boottime": {"history": stock, "median": stock_median},
+        "updated": schema.now(),
+        "default_branch": default,
+        "branches": branches,
+        "pin_candidates": candidates,
+        "adhoc": adhoc,
+        "runs": [{"id": r["run"]["id"], "kind": r["run"]["kind"],
+                  "title": r["run"].get("title", ""), "created": r["run"]["created"],
+                  "state": r["state"], "base": base_of(r)} for r in runs[:100]],
+    }
+    # The default branch's view at the top level too.
+    idx.update(branches.get(default) or nightly([]))
+    return idx
+
+
+def write(site_dir):
+    idx = build(load_runs(os.path.join(site_dir, "runs")))
+    tmp = os.path.join(site_dir, "index.json.tmp")
+    with open(tmp, "w") as f:
+        json.dump(idx, f, indent=1, sort_keys=True)
+    os.replace(tmp, os.path.join(site_dir, "index.json"))
+    return idx
