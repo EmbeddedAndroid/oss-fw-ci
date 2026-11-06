@@ -1,0 +1,6 @@
+# What the control jobs import (resolve, submit, monitor, collect,
+# publish) and the unit tests.
+b4==0.15.2
+jsonschema==4.23.0
+PyYAML==6.0.2
+pytest==8.4.2

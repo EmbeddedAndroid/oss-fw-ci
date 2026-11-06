@@ -1,0 +1,5 @@
+# qtestsign (fip.elf test signature), ukify, and OP-TEE's build scripts
+# (the venv python of the control stage shadows the distribution's).
+cryptography==44.0.2
+pefile==2024.8.26
+pyelftools==0.31
