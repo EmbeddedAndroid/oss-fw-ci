@@ -1,6 +1,6 @@
 {
  "schema": "ossci-index/1",
- "updated": "2026-11-07T10:27:35Z",
+ "updated": "2026-11-07T13:40:07Z",
  "latest_nightly": {},
  "runs": [
   {
@@ -9,8 +9,8 @@
    "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
    "requester": "oss-fw-ci-agent",
    "created": "2026-11-07T10:27:32Z",
-   "updated": "2026-11-07T10:27:32Z",
-   "state": "building",
+   "updated": "2026-11-07T13:40:05Z",
+   "state": "cancelled",
    "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42361538286",
    "driver": "workflow",
    "inputs": {
@@ -52,8 +52,8 @@
    "targets": [
     {
      "board": "rb3gen2",
-     "state": "building",
-     "state_detail": "",
+     "state": "cancelled",
+     "state_detail": "the workflow was cancelled before this target finished",
      "queue_position": null,
      "fingerprint_gate": "not-run",
      "verdict": "not-run",

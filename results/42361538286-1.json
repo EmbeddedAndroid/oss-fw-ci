@@ -6,12 +6,12 @@
   "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
   "requester": "oss-fw-ci-agent",
   "created": "2026-11-07T10:27:32Z",
-  "updated": "2026-11-07T10:27:32Z",
+  "updated": "2026-11-07T13:40:05Z",
   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42361538286",
   "driver": "workflow",
   "baseline": null
  },
- "state": "building",
+ "state": "cancelled",
  "inputs": {
   "tfa": {
    "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
@@ -77,14 +77,16 @@
   {
    "board": "rb3gen2",
    "device_type": "qcs6490-rb3gen2",
-   "state": "building",
+   "state": "cancelled",
    "fingerprint": "ossci-42361538286-1-rb3gen2",
    "bl2": {
     "secret": "PIN_BL2_RB3GEN2",
     "file": "tz-rb3gen2.mbn",
     "sha256": "29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5",
     "fingerprint": "QCDFP-261102-526"
-   }
+   },
+   "state_detail": "the workflow was cancelled before this target finished"
   }
- ]
+ ],
+ "note": "closed after the workflow ended (cancelled)"
 }
