@@ -84,9 +84,10 @@ class FakeLava:
         return 777
 
 
-def test_submit_picks_an_idle_healthy_device_and_never_production(tmp_path, monkeypatch, td, board):
-    from ossci import package
+def test_submit_picks_an_idle_healthy_device_and_never_production(tmp_path, monkeypatch, td, board, suite_cfg):
+    from ossci import jobs, package
     monkeypatch.setattr(run.config, "board", lambda name: board)
+    monkeypatch.setattr(jobs.config, "suite", lambda: suite_cfg)
     monkeypatch.setenv("LAVA_TOKEN", "x")
     monkeypatch.setattr(package, "insert_bl2", lambda pkg, name, board=None: None)
     import ossci.suite as s

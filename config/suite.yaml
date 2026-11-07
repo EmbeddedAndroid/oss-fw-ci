@@ -23,6 +23,21 @@ exclude:
 phases:
   warm: [boot-fingerprint, boot-handoff, kernel-health]
   last: [suspend-idle]
+# Parameter values of the suite itself, the same on every board (a
+# board's facts set the rest): where the image installs what the
+# definition defaults elsewhere, and how a runner is told to use what the
+# image carries instead of fetching its own copy.
+params:
+  kvm-unit-tests:
+    # The image carries the tests (kvm_unit_tests_ext): no fetch and build
+    # on the target; one case per test with the runner's verdict; a host
+    # without /dev/kvm fails instead of skipping every test.
+    SKIP_INSTALL: "true"
+    RESULTS: test
+    REQUIRE_KVM: "true"
+  inference:
+    # qcom-buildroot puts the model here (QCOM_TEST_INFERENCE_MODEL=y).
+    MODEL_DIR: /usr/share/npu-qnn/model
 # Definitions whose job carries an extra file: the QAIRT SDK zip, which
 # the image does not carry (the inference test unpacks it); only added
 # when the board's PUS name a QNN unit.

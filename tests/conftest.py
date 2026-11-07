@@ -52,6 +52,7 @@ def td(tmp_path):
 def suite_cfg():
     s = config.suite()
     s = copy.deepcopy(s)
+    s["params"] = {}
     s["phases"] = {"warm": ["boot-fingerprint", "boot-handoff", "kernel-health"], "last": ["suspend-idle"]}
     return s
 

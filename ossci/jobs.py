@@ -32,23 +32,27 @@ def fingerprints(fp, rootfs_fp):
             "FIRMWARE_FINGERPRINT": fp}
 
 
-def params_for(name, defaults, facts, extra):
+def params_for(name, defaults, facts, extra, suite_params=None):
+    """The definition's defaults, then the suite's values (every board),
+    then the board's facts, then the run's (fingerprints, resources)."""
     p = dict(defaults)
-    for k, v in (facts.get(name) or {}).items():
-        if k not in defaults:
-            raise ValueError("facts of %s: %s is not a parameter of the definition" % (name, k))
-        p[k] = "" if v is None else str(v)
+    for src, values in (("suite.yaml params", (suite_params or {}).get(name)), ("facts", facts.get(name))):
+        for k, v in (values or {}).items():
+            if k not in defaults:
+                raise ValueError("%s of %s: %s is not a parameter of the definition" % (src, name, k))
+            p[k] = "" if v is None else str(v)
     for k, v in extra.items():
         if k in defaults:
             p[k] = v
     return p
 
 
-def check_facts(facts, defs):
+def check_facts(facts, defs, suite_params=None):
     names = {n for _, n, _, _, _ in defs}
-    unknown = sorted(set(facts) - names)
-    if unknown:
-        raise ValueError("facts for %s, which the suite does not run" % ", ".join(unknown))
+    for what, given in (("facts", facts), ("suite.yaml params", suite_params or {})):
+        unknown = sorted(set(given) - names)
+        if unknown:
+            raise ValueError("%s for %s, which the suite does not run" % (what, ", ".join(unknown)))
 
 
 def test_action(defs, minutes):
@@ -96,7 +100,7 @@ def generate(board_name, board, fp, rootfs_fp, td, url, token_name, package_dir,
     artifact token name; package_dir: the top directory in the package."""
     suite_cfg = suite_cfg or config.suite()
     defs = suite.definitions(td, suite_cfg)
-    check_facts(board["facts"], defs)
+    check_facts(board["facts"], defs, suite_cfg.get("params"))
     resources = suite_cfg.get("resources", {})
     fps = fingerprints(fp, rootfs_fp)
     lv = board["lava"]
@@ -104,12 +108,13 @@ def generate(board_name, board, fp, rootfs_fp, td, url, token_name, package_dir,
     phases = {"cold": [], "warm": [], "last": []}
     for ph, name, _, steps, defaults in defs:
         extra = dict(fps)
-        params = params_for(name, defaults, board["facts"], {})
+        sp = suite_cfg.get("params") or {}
+        params = params_for(name, defaults, board["facts"], {}, sp)
         for rname, res in resources.items():
             if res.get("for") == name and resource_needed(res, params):
                 overlays[rname] = {"url": res["url"], "format": "file", "path": res["path"]}
                 extra.update(res.get("params", {}))
-        params = params_for(name, defaults, board["facts"], extra)
+        params = params_for(name, defaults, board["facts"], extra, sp)
         shown = name if ph != "warm" else name + "-after-reboot"
         phases[ph].append(inline(shown, steps, params))
     actions = [

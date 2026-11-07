@@ -113,3 +113,23 @@ def test_real_suite_config_is_consistent():
     assert s["commit"] and len(s["commit"]) == 40
     assert "systemready-acs" in s["exclude"]
     assert set(s["phases"]) <= {"warm", "last"}
+
+
+def test_suite_params_apply_to_every_board_and_facts_win(td, suite_cfg, board):
+    suite_cfg["params"] = {"kernel-health": {"MAX": "3"}, "boot-handoff": {"CPUS": "4"}}
+    j = gen(board, td, suite_cfg)
+    params = {d["name"]: d["parameters"] for a in j["actions"] for d in a.get("test", {}).get("definitions", [])}
+    assert params["kernel-health"]["MAX"] == "3" and params["kernel-health-after-reboot"]["MAX"] == "3"
+    assert params["boot-handoff"]["CPUS"] == "8"
+
+
+def test_unknown_suite_param_refused(td, suite_cfg, board):
+    suite_cfg["params"] = {"kernel-health": {"NOPE": "1"}}
+    with pytest.raises(ValueError, match="suite.yaml params"):
+        gen(board, td, suite_cfg)
+
+
+def test_suite_params_for_a_test_not_in_the_suite_refused(td, suite_cfg, board):
+    suite_cfg["params"] = {"video-codec": {"DEVICE": "x"}}
+    with pytest.raises(ValueError, match="suite.yaml params for video-codec"):
+        gen(board, td, suite_cfg)
