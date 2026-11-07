@@ -27,6 +27,10 @@ function inputsTable(inputs, rootfs, suite) {
   t.append(el("tr", {}, el("td", {}, "rootfs"), el("td", {}, "pinned"), el("td", {}, rootfs.repo || "qcom-buildroot"),
     el("td", {}, ""), el("td", {}, short(rootfs.commit),
       rootfs.upstream ? "" : el("span", {class: "pending"}, " not yet upstream" + (rootfs.note ? ": " + rootfs.note : "")))));
+  for (const [name, o] of Object.entries(rootfs.overrides || {})) {
+    t.append(el("tr", {}, el("td", {}, "rootfs override"), el("td", {}, "pinned"), el("td", {}, name), el("td", {}, ""),
+      el("td", {}, short(o.revision), el("span", {class: "pending"}, " " + o.reason))));
+  }
   t.append(el("tr", {}, el("td", {}, "suite"), el("td", {}, "pinned"), el("td", {}, "test-definitions"),
     el("td", {}, ""), el("td", {}, short(typeof suite === "string" ? suite : suite.commit))));
   return t;
