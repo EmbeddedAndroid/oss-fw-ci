@@ -6,12 +6,12 @@
   "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
   "requester": "oss-fw-ci-agent",
   "created": "2026-11-07T14:46:18Z",
-  "updated": "2026-11-07T14:46:18Z",
+  "updated": "2026-11-07T15:24:44Z",
   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42382185992",
   "driver": "workflow",
   "baseline": null
  },
- "state": "building",
+ "state": "testing",
  "inputs": {
   "tfa": {
    "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
@@ -71,19 +71,77 @@
     "revision": "953c16912391d000e413468cb8a631d5d7ff627f",
     "reason": "manifests/common.xml leaves optee_test on master while kodiak.xml pins optee_os 9bcaec96 (2026-09-09); optee_test 00d4f0e (2026-11-02, regression 1047 ASLR test) needs PTA_INVOKE_TESTS_CMD_ASLR, which that optee_os lacks, so xtest does not build. 953c169 is the last optee_test commit before the ASLR series."
    }
+  },
+  "fingerprint": "ossci-rootfs-6bd87d78-81c6b8ef-695fe400",
+  "sha256": "72c87188098fda6ca1f056408c009c458a1e8d88638207f22c6f6582e6e8c4d5",
+  "key": "695fe400badaaebf",
+  "makefile": "kodiak.mk",
+  "make_args": [
+   "TEST=y",
+   "QCOM_TESTS=boot-fingerprint boot-handoff cpu-features cpu-hotplug cpufreq-policy kernel-health maxcpus memtest remoteproc-smoke remoteproc-restart fastrpc optee-xtest tee-shm-reclaim alsa-dsp-restart memtester kvm-unit-tests kvm-guest gpu-render video-codec inference suspend-idle",
+   "QCOM_TEST_INFERENCE_MODEL=y"
+  ],
+  "manifest": {
+   "file": "manifests/kodiak.xml",
+   "synced": "manifest-synced.xml"
   }
  },
  "targets": [
   {
    "board": "rb3gen2",
    "device_type": "qcs6490-rb3gen2",
-   "state": "building",
+   "state": "queued",
    "fingerprint": "ossci-42382185992-1-rb3gen2",
    "bl2": {
     "secret": "PIN_BL2_RB3GEN2",
     "file": "tz-rb3gen2.mbn",
     "sha256": "29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5",
     "fingerprint": "QCDFP-261102-526"
+   },
+   "builds": {
+    "optee": {
+     "fingerprint": "ossci-42382185992-1-rb3gen2",
+     "commit": "b5e5f7a0f85aff4d1da7077370b74f2c63b89394",
+     "tee-raw.bin": "7373842eeeb6e45e5bdf84fff8dbc4dea59558d43fce64f24fd2d07221fecbd9",
+     "warnings": 0
+    },
+    "uboot": {
+     "fingerprint": "ossci-42382185992-1-rb3gen2",
+     "commit": "55f4e43a871d787d66ee98ef0d3e605abe3076f4",
+     "u-boot.bin": "ba678b9a1f18c5db51d5bf2a66d9a6cb55b0cc13692c3d9b97193a01c76948e3",
+     "warnings": 1
+    },
+    "linux": {
+     "fingerprint": "ossci-42382185992-1-rb3gen2",
+     "commit": "0b3b9dd83f9e977678e8c23b43e794a4adda6d54",
+     "release": "7.4.0-rc1-next-20261103-ossci-42382185992-1-rb3gen2",
+     "Image": "47a415c737c21f1e53def86011b38a7a62a179e6f2264bfcbe93296b206dca85",
+     "dtb": "3c54ac363cab662eb612329b3581e36eece2ad7e4a94aa92a8593ca9f8c0ddfe",
+     "warnings": 0
+    },
+    "tfa": {
+     "fingerprint": "ossci-42382185992-1-rb3gen2",
+     "commit": "95a4c903a8389bd5d264097131a271b96f6349c0",
+     "bl31.bin": "ff5c9a6a050e6bb1db2fc2c1ed011da41138986493aa1a8c133f9f75112a1cbf",
+     "fip.elf": "6ef8ea0a85a769263e17952b68f38daed41b080c34028dfb9bc1a0a961d9d109",
+     "warnings": 0
+    },
+    "esp": {
+     "uki": "8352a1a9ade8b18f3e6d820119126abc32a9f6a06fd22d85451a262f57f15db6",
+     "efi.bin": "8b497a258dc28251c360c5b0381b922f7fd01db3c1e9c62119fdb9217d2373ab",
+     "cmdline": "console=ttyMSM0,115200 qcom_scm.download_mode=1 earlycon"
+    }
+   },
+   "package": {
+    "file": "rb3gen2.qcomflash.tar.gz",
+    "sha256": "cd1cc7e9b80f008f604e757cba365bbe5d30077e560bbed326b8d12188f75c11",
+    "size": 222122700
+   },
+   "lava": {
+    "job_id": 547797,
+    "url": "https://lava.infra.foundries.io/scheduler/job/547797",
+    "device": "rb3g2-01",
+    "health": null
    }
   }
  ]
