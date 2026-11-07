@@ -60,21 +60,36 @@ open(sys.argv[2], "w").write(x)
 PY
 git -C "$mr" init -q && git -C "$mr" add -A && git -C "$mr" commit -qm manifest
 top=$ws/tree
-# A fresh tree every time: a leftover one would carry another manifest.
-rm -rf "$top"; mkdir -p "$top"; cd "$top"
-repo init -q -u "$mr" -m default.xml --no-clone-bundle < /dev/null
-repo sync -q -j8 --no-clone-bundle --fail-fast
-repo manifest -r -o "$out/manifest-synced.xml"
-rm -rf "$top/build"; git clone -q "$qb" "$top/build"; git -C "$top/build" checkout -q --detach "$commit"
-(cd "$repo" && python3 -m ossci.rootfs check "$top/build") >&2
+if [ "${OSSCI_ROOTFS_RESUME:-}" = 1 ] && [ -f "$top/.ossci-key" ] && [ "$(cat "$top/.ossci-key")" = "$key" ]; then
+	# The same key's interrupted build (killed, out of memory): Buildroot
+	# carries on from its stamps.
+	cd "$top"
+	echo "resuming the build of this key in $top" >&2
+else
+	# A fresh tree otherwise: a leftover one would carry another manifest.
+	rm -rf "$top"; mkdir -p "$top"; cd "$top"
+	: > "$out/build.log"
+	repo init -q -u "$mr" -m default.xml --no-clone-bundle < /dev/null
+	repo sync -q -j8 --no-clone-bundle --fail-fast
+	repo manifest -r -o "$out/manifest-synced.xml"
+	rm -rf "$top/build"; git clone -q "$qb" "$top/build"; git -C "$top/build" checkout -q --detach "$commit"
+	printf '%s' "$key" > "$top/.ossci-key"
+	(cd "$repo" && python3 -m ossci.rootfs check "$top/build") >&2
+fi
+# A resumed tree has the staged build output; nothing tracked may differ.
+(cd "$repo" && python3 -m ossci.rootfs check "$top/build" --tracked) >&2
 ln -sf "$(pin "arch.$arch.makefile")" "$top/build/Makefile"
 mapfile -t args < <(cd "$repo" && python3 -m ossci.config top rootfs "arch.$arch.make_args")
 issue=$(cd "$repo" && python3 -m ossci.config top rootfs "arch.$arch.issue")
 issue=${issue//\{fingerprint\}/$fp}
 cd "$top/build"
 # The toolchains first, as qcom-buildroot's build instructions do.
+# Parallelism is a host knob, not part of the image: Buildroot builds
+# packages side by side (per-package directories), and LLVM and Clang at
+# full width each exhaust 32 GB, so the job levels stay below the CPUs.
+jobs=${OSSCI_ROOTFS_JOBS:-8} jlevel=${OSSCI_BR2_JLEVEL:-12}
 { make -j2 "${args[@]}" toolchains &&
-  make -j"$(nproc)" "${args[@]}" BR2_TARGET_GENERIC_ISSUE="$issue" buildroot; } > "$out/build.log" 2>&1 ||
+  make -j"$jobs" "${args[@]}" BR2_JLEVEL="$jlevel" BR2_TARGET_GENERIC_ISSUE="$issue" buildroot; } >> "$out/build.log" 2>&1 ||
 	{ tail -60 "$out/build.log" >&2; exit 1; }
 # The build stages firmware and the model into untracked directories of
 # the tree; nothing tracked may have changed.
