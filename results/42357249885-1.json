@@ -1,0 +1,90 @@
+{
+ "schema": "ossci-run/1",
+ "run": {
+  "id": "42357249885-1",
+  "kind": "adhoc",
+  "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
+  "requester": "oss-fw-ci-agent",
+  "created": "2026-11-07T09:17:30Z",
+  "updated": "2026-11-07T09:17:30Z",
+  "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42357249885",
+  "driver": "workflow",
+  "baseline": null
+ },
+ "state": "building",
+ "inputs": {
+  "tfa": {
+   "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
+   "ref": "qcom/integration-20261102g",
+   "commit": "95a4c903a8389bd5d264097131a271b96f6349c0",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "optee": {
+   "repo": "https://github.com/EmbeddedAndroid/optee_os",
+   "ref": "qcom/integration-20261105",
+   "commit": "b5e5f7a0f85aff4d1da7077370b74f2c63b89394",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "uboot": {
+   "repo": "https://github.com/EmbeddedAndroid/u-boot",
+   "ref": "qcom/integration-20261105a",
+   "commit": "55f4e43a871d787d66ee98ef0d3e605abe3076f4",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "linux": {
+   "repo": "https://github.com/EmbeddedAndroid/linux",
+   "ref": "qcom/integration-20261107",
+   "commit": "0b3b9dd83f9e977678e8c23b43e794a4adda6d54",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  }
+ },
+ "suite": {
+  "repo": "https://github.com/EmbeddedAndroid/test-definitions.git",
+  "branch": "openbootstack-tests",
+  "commit": "81c6b8ef967cf0ee412e860abeeca28e0696745a",
+  "plan": "plans/open-boot-stack/open-boot-stack.yaml",
+  "exclude": {
+   "systemready-acs": "the ACS boots an image of its own, not the stack under test",
+   "maxcpus": "needs a job booting with maxcpus=N (not generated yet)",
+   "memtest": "needs a job booting with memtest=N (not generated yet)"
+  }
+ },
+ "rootfs": {
+  "repo": "https://github.com/qualcomm-linux/qcom-buildroot.git",
+  "commit": "6bd87d78b36e48446635dd3567e0931903cb7525",
+  "upstream": true,
+  "note": "",
+  "overrides": {
+   "OP-TEE/optee_test.git": {
+    "revision": "953c16912391d000e413468cb8a631d5d7ff627f",
+    "reason": "manifests/common.xml leaves optee_test on master while kodiak.xml pins optee_os 9bcaec96 (2026-09-09); optee_test 00d4f0e (2026-11-02, regression 1047 ASLR test) needs PTA_INVOKE_TESTS_CMD_ASLR, which that optee_os lacks, so xtest does not build. 953c169 is the last optee_test commit before the ASLR series."
+   }
+  }
+ },
+ "targets": [
+  {
+   "board": "rb3gen2",
+   "device_type": "qcs6490-rb3gen2",
+   "state": "building",
+   "fingerprint": "ossci-42357249885-1-rb3gen2",
+   "bl2": {
+    "secret": "PIN_BL2_RB3GEN2",
+    "file": "tz-rb3gen2.mbn",
+    "sha256": "29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5",
+    "fingerprint": "QCDFP-261102-526"
+   }
+  }
+ ]
+}

@@ -1,8 +1,68 @@
 {
  "schema": "ossci-index/1",
- "updated": "2026-11-07T08:01:34Z",
+ "updated": "2026-11-07T09:17:37Z",
  "latest_nightly": {},
  "runs": [
+  {
+   "id": "42357249885-1",
+   "kind": "adhoc",
+   "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
+   "requester": "oss-fw-ci-agent",
+   "created": "2026-11-07T09:17:30Z",
+   "updated": "2026-11-07T09:17:30Z",
+   "state": "building",
+   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42357249885",
+   "driver": "workflow",
+   "inputs": {
+    "tfa": {
+     "role": "baseline",
+     "commit": "95a4c903a8389bd5d264097131a271b96f6349c0",
+     "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
+     "ref": "qcom/integration-20261102g",
+     "pending": null
+    },
+    "optee": {
+     "role": "baseline",
+     "commit": "b5e5f7a0f85aff4d1da7077370b74f2c63b89394",
+     "repo": "https://github.com/EmbeddedAndroid/optee_os",
+     "ref": "qcom/integration-20261105",
+     "pending": null
+    },
+    "uboot": {
+     "role": "baseline",
+     "commit": "55f4e43a871d787d66ee98ef0d3e605abe3076f4",
+     "repo": "https://github.com/EmbeddedAndroid/u-boot",
+     "ref": "qcom/integration-20261105a",
+     "pending": null
+    },
+    "linux": {
+     "role": "baseline",
+     "commit": "0b3b9dd83f9e977678e8c23b43e794a4adda6d54",
+     "repo": "https://github.com/EmbeddedAndroid/linux",
+     "ref": "qcom/integration-20261107",
+     "pending": null
+    }
+   },
+   "rootfs": {
+    "commit": "6bd87d78b36e48446635dd3567e0931903cb7525",
+    "upstream": true,
+    "note": ""
+   },
+   "suite": "81c6b8ef967cf0ee412e860abeeca28e0696745a",
+   "targets": [
+    {
+     "board": "rb3gen2",
+     "state": "building",
+     "state_detail": "",
+     "queue_position": null,
+     "fingerprint_gate": "not-run",
+     "verdict": "not-run",
+     "counts": {},
+     "lava": null,
+     "diff": null
+    }
+   ]
+  },
   {
    "id": "26110605-1",
    "kind": "adhoc",
