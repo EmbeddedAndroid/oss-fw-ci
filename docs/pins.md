@@ -37,8 +37,8 @@ Every pin is a reviewed change to a file of `config/`:
 | suite | EmbeddedAndroid/test-definitions openbootstack-tests 81c6b8ef | yes |
 | rootfs | qualcomm-linux/qcom-buildroot main 6bd87d7, TEST=y | yes; watch: the test-config PR (qcom-test-suite 79369f4) for tee-shm-reclaim, suspend-idle and the QEMU kvm-unit-tests |
 | rootfs override | optee_test 953c169 (manifest leaves it on master; master since 00d4f0e needs an ASLR PTA the pinned optee_os 9bcaec96 lacks) | yes (qcom-buildroot fix needed) |
-| TF-A | EmbeddedAndroid qcom/integration-20261102g 95a4c903a | yes |
-| OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f | yes |
-| U-Boot | EmbeddedAndroid qcom/integration-20261105a 55f4e43a871 | yes |
-| Linux | 8bcbb1c55f01: the kernel of LAVA 540899 (kernel-topics 9226b98151 + 9 Kodiak commits, b5e84377bb7a) + kodiak-el2 DSP images from qcom/qcm6490 | no |
+| TF-A | EmbeddedAndroid qcom/integration-20261102g 95a4c903a (= qcom/integration) | yes |
+| OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f (= qcom/integration) | yes |
+| U-Boot | EmbeddedAndroid qcom/integration-20261105a 55f4e43a871 (= qcom/integration) | yes |
+| Linux | EmbeddedAndroid qcom/integration-20261107 0b3b9dd83f9e9 (linux-int qcom/integration, next-20261103 base) | yes |
 | RB3 Gen 2 BL2 | QCDFP-261102-526, sha256 29344d74 (secret PIN_BL2_RB3GEN2, the image of LAVA 540899) | no, by design |
