@@ -59,3 +59,429 @@ justifications:
     reason: the Linux audio drivers do not survive an ADSP stop (declared expected failure; Linux, not firmware)
     evidence: https://lava.infra.foundries.io/scheduler/job/540899
     reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: gpu-render/gpu-render
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/pci-test
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/its-migration
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/its-pending-migration
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/its-migrate-unmapped-collection
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/debug-bp-migration
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/debug-wp-migration
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: kvm-unit-tests/debug-sstep-migration
+    result: skip
+    reason: "kvm-unit-tests disables it outside QEMU ([[ \"$TARGET\" != qemu ]]); the QEMU runner comes with qcom-buildroot's test-config PR (config/rootfs.yaml watch); skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L9594
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-0-0-entered
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-0-0-refused
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-0-1-entered
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-0-1-refused
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-1-0-entered
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-1-0-refused
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-1-1-entered
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/cpuidle-cpu-sleep-1-1-refused
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/genpd-power-domain-cluster-reached
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/suspend-s2idle-1-s2idle-deepest
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/suspend-s2idle-2-kernel-clean
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/suspend-s2idle-2-s2idle-deepest
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: suspend-idle/suspend-s2idle-3-s2idle-deepest
+    result: fail
+    reason: "CPU and cluster power-down states are never entered: the known native Kodiak TF-A gap (no CPU/cluster power-down in PSCI OSI), as in runs 26110602-1 and 26110605-1"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L16737
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: cpufreq-policy/policy0-min
+    result: skip
+    reason: "the 300 MHz request of policy0 reads back 288 MHz, outside cpuinfo_min_freq..max, so the test skips the check by design; skip as in 540899"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2307
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-smoke/remoteproc-adsp-running
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-smoke/remoteproc-cdsp-running
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: fastrpc/fastrpc-adsp
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: fastrpc/fastrpc-cdsp
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: fastrpc/fastrpc-cdsp-unsigned-pd
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-ready
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-run
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-top1
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-vs-cpu
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-vs-host
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-latency
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-latency-p50
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-latency-p90
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/npu0-qnn-htp-speedup
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1784
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-ready
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-run
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-top1
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-vs-cpu
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-latency
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-latency-p50
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: inference/gpu-tflite-gpu-latency-p90
+    result: fail
+    reason: "the pinned rootfs (qcom-buildroot main) has no Adreno a660 microcode (qcom/a660_sqe.fw not found), so the GPU never initialises; qcom-buildroot fix"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L2008
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/dsp-restart-idle
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/controls-after-restart
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/playback-after-restart
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/dsp-restart-during-playback
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/stream-ends-after-restart
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: alsa-dsp-restart/playback-after-busy-restart
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-start-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-stop-1
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-start-1
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-running-1
+    result: fail
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-channels-1
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-kernel-clean-1
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-stop-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-offline-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-running-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-channels-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-kernel-clean-2
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-stop-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-offline-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-start-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-running-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-channels-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: remoteproc-restart/cdsp-kernel-clean-3
+    result: skip
+    reason: "the Linux pin (qcom/integration-20261107) names qcom/qcs6490/adsp.mbn and cdsp.mbn, where the pinned rootfs stages no DSP images (qcom-buildroot puts them in qcom/qcm6490), so the ADSP and CDSP never start; kodiak-el2's firmware-name override (local 8bcbb1c) is not in linux qcom/integration. Pin mismatch, not firmware"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L1732
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: tee-shm-reclaim/tee-shm-reclaim-open
+    result: skip
+    reason: "qcom-buildroot main has no tee-shm-reclaim test binary (test-config PR, config/rootfs.yaml watch)"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L8854
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: tee-shm-reclaim/tee-shm-reclaim-1p
+    result: skip
+    reason: "qcom-buildroot main has no tee-shm-reclaim test binary (test-config PR, config/rootfs.yaml watch)"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L8854
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: tee-shm-reclaim/tee-shm-reclaim-64p
+    result: skip
+    reason: "qcom-buildroot main has no tee-shm-reclaim test binary (test-config PR, config/rootfs.yaml watch)"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L8854
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: tee-shm-reclaim/tee-shm-reclaim-1024p
+    result: skip
+    reason: "qcom-buildroot main has no tee-shm-reclaim test binary (test-config PR, config/rootfs.yaml watch)"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L8854
+    reviewer: "proposed (Tyler reviews it with this file)"
+  - board: rb3gen2
+    case: tee-shm-reclaim/tee-shm-reclaim-no-reclaim-error
+    result: skip
+    reason: "qcom-buildroot main has no tee-shm-reclaim test binary (test-config PR, config/rootfs.yaml watch)"
+    evidence: https://lava.infra.foundries.io/scheduler/job/547797#L8854
+    reviewer: "proposed (Tyler reviews it with this file)"
