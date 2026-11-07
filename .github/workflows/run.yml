@@ -198,6 +198,7 @@ jobs:
     env:
       LAVA_TOKEN: ${{ secrets.LAVA_TOKEN }}
       PIN_BL2_RB3GEN2: ${{ secrets.PIN_BL2_RB3GEN2 }}
+      BOARDS: ${{ needs.resolve.outputs.boards }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -209,7 +210,9 @@ jobs:
           doc=work/artifacts/run/$RUN_ID.json
           [ -f work/artifacts/rootfs/rootfs.json ] && $CI_RUN python3 -m ossci.run rootfs "$doc" work/artifacts/rootfs/rootfs.json
           mkdir -p work/packages
-          for b in $(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))))' '${{ needs.resolve.outputs.boards }}'); do
+          # An assignment, not the for list: a parse failure fails the step.
+          boards=$(python3 -c 'import json,sys; print(" ".join(json.loads(sys.argv[1])))' "$BOARDS")
+          for b in $boards; do
             f=work/artifacts/build-$b/$b.build.json
             if [ -f "$f" ]; then
               $CI_RUN python3 -m ossci.run built "$doc" "$b" "$f"
