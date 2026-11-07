@@ -38,5 +38,5 @@ Every pin is a reviewed change to a file of `config/`:
 | TF-A | EmbeddedAndroid qcom/integration-20261102g 95a4c903a | yes |
 | OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f | yes |
 | U-Boot | EmbeddedAndroid qcom/integration-20261105a 55f4e43a871 | yes |
-| Linux | kernel-topics 9226b98151 + 9 Kodiak commits = b5e84377bb7a (the kernel of LAVA 540899) | no |
+| Linux | 8bcbb1c55f01: the kernel of LAVA 540899 (kernel-topics 9226b98151 + 9 Kodiak commits, b5e84377bb7a) + kodiak-el2 DSP images from qcom/qcm6490 | no |
 | RB3 Gen 2 BL2 | QCDFP-261102-526 (oss-fw-ci-private release bl2-rb3gen2-QCDFP-261102-526) | private by design |

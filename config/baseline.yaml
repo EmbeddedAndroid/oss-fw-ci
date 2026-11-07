@@ -16,13 +16,14 @@ uboot:
   ref: qcom/integration-20261105a
   commit: 55f4e43a871d787d66ee98ef0d3e605abe3076f4
 linux:
-  # The Kodiak kernel of the latest hand-run RB3 Gen 2 suite (LAVA 540899):
-  # qualcomm-linux/kernel-topics 9226b98151 (the qcom-buildroot kodiak
-  # manifest pin) plus 9 Kodiak commits, not published yet. Until it is
-  # (or the Linux integration branch is), the CI cannot fetch the
-  # baseline Linux: a workflow run needs a `linux` input, and a run on
-  # this pin is driven from a CIL lease holding the tree (docs/setup.md).
+  # The Kodiak kernel of the latest hand-run RB3 Gen 2 suite (LAVA 540899,
+  # b5e84377bb7a: qualcomm-linux/kernel-topics 9226b98151 plus 9 Kodiak
+  # commits) with one more, which takes the DSP images from qcom/qcm6490
+  # where the pinned rootfs's linux-firmware puts them (run 26110604-1
+  # against 26110602-1). Not published yet: a workflow run needs a
+  # `linux` input until it is, and a run on this pin is driven from a CIL
+  # lease holding the tree (docs/setup.md).
   repo: https://github.com/qualcomm-linux/kernel-topics
   ref: kodiak-oss-fw-ci-baseline
-  commit: b5e84377bb7a1d0390410c5d73620b340f6a9df9
-  pending: kernel-topics 9226b98151 plus 9 Kodiak commits, not published
+  commit: 8bcbb1c55f015660bb48dbc2c5c18bc8f52dcf81
+  pending: kernel-topics 9226b98151 plus 10 Kodiak commits, not published
