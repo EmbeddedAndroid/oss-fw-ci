@@ -48,10 +48,14 @@ git -C "$qb" show "$commit:manifests/common.xml" > "$ws/manifest/common.xml"
 mr=$ws/manifest-repo
 rm -rf "$mr"; mkdir -p "$mr/manifests"
 cp "$ws/manifest/common.xml" "$mr/manifests/common.xml"
-python3 - "$ws/manifest/kodiak.xml" "$mr/default.xml" <<'PY'
-import re, sys
+overrides=$(cd "$repo" && python3 -c 'import json; from ossci import config; print(json.dumps({k: v["revision"] for k, v in (config.rootfs().get("manifest_overrides") or {}).items()}))')
+python3 - "$ws/manifest/kodiak.xml" "$mr/default.xml" "$overrides" <<'PY'
+import json, re, sys
 x = open(sys.argv[1]).read()
 x = re.sub(r'\s*<project path="build"[^>]*>.*?</project>', "", x, flags=re.S)
+# An override is an <extend-project>: the manifest's own text is kept.
+ext = "".join('  <extend-project name="%s" revision="%s" />\n' % (n, r) for n, r in json.loads(sys.argv[3]).items())
+x = x.replace("</manifest>", ext + "</manifest>")
 open(sys.argv[2], "w").write(x)
 PY
 git -C "$mr" init -q && git -C "$mr" add -A && git -C "$mr" commit -qm manifest

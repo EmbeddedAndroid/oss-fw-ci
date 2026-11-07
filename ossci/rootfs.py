@@ -55,7 +55,8 @@ def key(td_commit, arch, pin=None):
     pin = pin or config.rootfs()
     a = pin["arch"][arch]
     return {"qcom_buildroot": pin["commit"], "test_definitions": td_commit, "arch": arch,
-            "makefile": a["makefile"], "make_args": a["make_args"], "manifest": pin["manifest"]}
+            "makefile": a["makefile"], "make_args": a["make_args"], "manifest": pin["manifest"],
+            "manifest_overrides": {k: v["revision"] for k, v in (pin.get("manifest_overrides") or {}).items()}}
 
 
 def key_id(k):

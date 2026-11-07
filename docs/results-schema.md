@@ -22,7 +22,8 @@ two files; the dashboard reads nothing else.
   `exclude`d definitions with the reason.
 - `rootfs`: qcom-buildroot `repo` and `commit`, `upstream` (false while
   the pin is not an upstream commit: the dashboard marks it "not yet
-  upstream"), `note`, and once built `fingerprint`, `sha256` (of
+  upstream"), `note`, `overrides` (manifest projects taken at another
+  revision, with the reason), and once built `fingerprint`, `sha256` (of
   rootfs.cpio.gz), `key` (the cache key id), `makefile`, `make_args`,
   `manifest` (the repo manifest as synced).
 - `targets[]`, one per board:

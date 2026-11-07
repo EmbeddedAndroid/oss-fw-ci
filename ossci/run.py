@@ -79,7 +79,8 @@ def new(a):
            "suite": {"repo": s["repo"], "branch": s["branch"], "commit": s["commit"], "plan": s["plan"],
                      "exclude": s.get("exclude", {})},
            "rootfs": {"repo": r["repo"], "commit": r["commit"], "upstream": bool(r.get("upstream")),
-                      "note": (r.get("source") or {}).get("note", "")},
+                      "note": (r.get("source") or {}).get("note", ""),
+                      "overrides": r.get("manifest_overrides") or {}},
            "targets": targets}
     save(a.doc, doc)
 

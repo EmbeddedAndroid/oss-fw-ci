@@ -10,7 +10,10 @@ Every pin is a reviewed change to a file of `config/`:
   (false while the pin is not an upstream commit), where the commit can
   be fetched meanwhile (`source.repo`, null when nowhere public), the
   repo manifest, and per architecture the makefile, make arguments and
-  output. The rootfs job builds the tree only when `ossci.rootfs check`
+  output, and `manifest_overrides`: a revision for a project the
+  manifest leaves on a moving branch that no longer builds with the
+  manifest's own pins, each with its reason (a qcom-buildroot bug to fix
+  upstream, then dropped here). The rootfs job builds the tree only when `ossci.rootfs check`
   finds it exactly at the pin with nothing applied, and checks the
   tracked files again after the build. To change the image, change
   qcom-buildroot upstream first, then move this pin.
@@ -31,6 +34,7 @@ Every pin is a reviewed change to a file of `config/`:
 |---|---|---|
 | suite | EmbeddedAndroid/test-definitions openbootstack-tests 81c6b8ef | yes |
 | rootfs | qcom-buildroot qcom-test-suite 79369f4 (test-config PR, not opened) | no: the dashboard marks it not yet upstream |
+| rootfs override | optee_test 953c169 (manifest leaves it on master; master since 00d4f0e needs an ASLR PTA the pinned optee_os 9bcaec96 lacks) | yes (qcom-buildroot fix needed) |
 | TF-A | EmbeddedAndroid qcom/integration-20261102g 95a4c903a | yes |
 | OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f | yes |
 | U-Boot | EmbeddedAndroid qcom/integration-20261105a 55f4e43a871 | yes |

@@ -115,7 +115,8 @@
                               "note": {"type": "string"}, "makefile": {"type": "string"},
                               "make_args": {"type": "array", "items": {"type": "string"}},
                               "fingerprint": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha256"},
-                              "key": {"type": "string"}, "manifest": {"type": "object"}}},
+                              "key": {"type": "string"}, "manifest": {"type": "object"},
+                              "overrides": {"type": "object", "description": "manifest projects taken at another revision than the manifest names, with the reason (config/rootfs.yaml manifest_overrides)"}}},
     "targets": {"type": "array", "items": {"$ref": "#/$defs/target"}}
   }
 }

@@ -20,6 +20,19 @@ source:
 # repo manifest of the tree; the `build` project is replaced by the
 # pinned checkout.
 manifest: manifests/kodiak.xml
+# Revisions for projects the manifest leaves on a moving branch, where
+# that branch no longer builds with the manifest's own pins. Each entry
+# is a qcom-buildroot bug to fix upstream (pin the project there), then
+# drop here. The dashboard shows them with the rootfs.
+manifest_overrides:
+  OP-TEE/optee_test.git:
+    revision: 953c16912391d000e413468cb8a631d5d7ff627f
+    reason: >-
+      manifests/common.xml leaves optee_test on master while kodiak.xml
+      pins optee_os 9bcaec96 (2026-09-09); optee_test 00d4f0e (2026-11-02,
+      regression 1047 ASLR test) needs PTA_INVOKE_TESTS_CMD_ASLR, which
+      that optee_os lacks, so xtest does not build. 953c169 is the last
+      optee_test commit before the ASLR series.
 # Per architecture: the board makefile whose `buildroot` target builds the
 # image, and the make arguments. QCOM_TESTS names every test of the suite
 # (the makefile narrows it by default); the inference model is in the
