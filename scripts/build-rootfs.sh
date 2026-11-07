@@ -7,7 +7,8 @@
 # tree given, which must already be that commit), the tree checked
 # pristine (ossci.rootfs check: no patch, no change), then the
 # architecture's makefile `buildroot` target with the pinned make
-# arguments. Nothing in the tree is touched. Out: rootfs.cpio.gz,
+# arguments (a build stopped by a failed download is resumed, up to
+# three tries). Nothing in the tree is touched. Out: rootfs.cpio.gz,
 # rootfs.json (key, fingerprint, sha256, the manifest as synced),
 # build.log. Runs in the rootfs container on an x86_64 host.
 set -euo pipefail
@@ -90,9 +91,22 @@ cd "$top/build"
 # packages side by side (per-package directories), and LLVM and Clang at
 # full width each exhaust 32 GB, so the job levels stay below the CPUs.
 jobs=${OSSCI_ROOTFS_JOBS:-8} jlevel=${OSSCI_BR2_JLEVEL:-12}
-{ make -j2 "${args[@]}" toolchains &&
-  make -j"$jobs" "${args[@]}" BR2_JLEVEL="$jlevel" BR2_TARGET_GENERIC_ISSUE="$issue" buildroot; } >> "$out/build.log" 2>&1 ||
-	{ tail -60 "$out/build.log" >&2; exit 1; }
+# Buildroot fetches each source once per site, and an upstream that
+# drops connections (ffmpeg.org: wget exit 4 on 2 of 10 fetches) then
+# fails the build; Buildroot resumes from its stamps, so a build that
+# stopped on a download is run again, up to three times.
+br() {
+	make -j2 "${args[@]}" toolchains &&
+	make -j"$jobs" "${args[@]}" BR2_JLEVEL="$jlevel" BR2_TARGET_GENERIC_ISSUE="$issue" buildroot
+}
+for try in 1 2 3; do
+	mark=$(wc -l < "$out/build.log" 2>/dev/null || echo 0)
+	br >> "$out/build.log" 2>&1 && break
+	tail -n +"$((mark + 1))" "$out/build.log" | grep -q '/\.stamp_downloaded\] Error' && [ "$try" -lt 3 ] ||
+		{ tail -60 "$out/build.log" >&2; exit 1; }
+	echo "download failed (try $try), resuming in 60 s" >&2
+	sleep 60
+done
 # The build stages firmware and the model into untracked directories of
 # the tree; nothing tracked may have changed.
 rm -f "$top/build/Makefile"
