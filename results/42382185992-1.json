@@ -6,12 +6,12 @@
   "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
   "requester": "oss-fw-ci-agent",
   "created": "2026-11-07T14:46:18Z",
-  "updated": "2026-11-07T15:32:18Z",
+  "updated": "2026-11-07T16:03:10Z",
   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42382185992",
   "driver": "workflow",
   "baseline": null
  },
- "state": "testing",
+ "state": "done",
  "inputs": {
   "tfa": {
    "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
@@ -90,7 +90,7 @@
   {
    "board": "rb3gen2",
    "device_type": "qcs6490-rb3gen2",
-   "state": "testing",
+   "state": "done",
    "fingerprint": "ossci-42382185992-1-rb3gen2",
    "bl2": {
     "secret": "PIN_BL2_RB3GEN2",
@@ -141,7 +141,3050 @@
     "job_id": 547797,
     "url": "https://lava.infra.foundries.io/scheduler/job/547797",
     "device": "rb3g2-01",
-    "health": "Unknown"
+    "health": "Complete"
+   },
+   "cases": [
+    {
+     "suite": "boot-fingerprint",
+     "name": "fingerprint-linux",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2203"
+    },
+    {
+     "suite": "boot-fingerprint",
+     "name": "fingerprint-rootfs",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2205"
+    },
+    {
+     "suite": "boot-fingerprint",
+     "name": "fingerprint-firmware-dmi",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2211"
+    },
+    {
+     "suite": "gpu-render",
+     "name": "gpu-render-node",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8912"
+    },
+    {
+     "suite": "gpu-render",
+     "name": "gpu-render",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8914"
+    },
+    {
+     "suite": "video-codec",
+     "name": "rebind",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9312"
+    },
+    {
+     "suite": "video-codec",
+     "name": "video-codec-nodes",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8976"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-h264",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8978"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-hevc",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9034"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-vp9",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9087"
+    },
+    {
+     "suite": "video-codec",
+     "name": "encode-h264",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9139"
+    },
+    {
+     "suite": "video-codec",
+     "name": "encode-hevc",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9198"
+    },
+    {
+     "suite": "video-codec",
+     "name": "runtime-suspend",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9254"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-h264-after-suspend",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9257"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-h264-after-rebind",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9316"
+    },
+    {
+     "suite": "video-codec",
+     "name": "firmware-missing",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9369"
+    },
+    {
+     "suite": "video-codec",
+     "name": "firmware-restored",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9394"
+    },
+    {
+     "suite": "video-codec",
+     "name": "decode-h264-after-recovery",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9398"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "kvm-device",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9754"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "selftest-setup",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9757"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "selftest-vectors-kernel",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9760"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "selftest-vectors-user",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9763"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "selftest-smp",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9767"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pci-test",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9769"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-cycle-counter",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9772"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-event-introspection",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9776"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-event-counter-config",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9778"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-basic-event-count",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9782"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-mem-access",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9784"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-mem-access-reliability",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9787"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-sw-incr",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9791"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-chained-counters",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9793"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-chained-sw-incr",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9796"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-chain-promotion",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9800"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "pmu-overflow-interrupt",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9802"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv2-ipi",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9807",
+     "justified": {
+      "reason": "the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv2-mmio",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9809",
+     "justified": {
+      "reason": "the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv2-mmio-up",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9811",
+     "justified": {
+      "reason": "the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv2-mmio-3p",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9815",
+     "justified": {
+      "reason": "the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv3-ipi",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9817"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv2-active",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9819",
+     "justified": {
+      "reason": "the GIC-600 of Kodiak has no GICv2 compatibility (kvm-unit-tests skips the GICv2 tests)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "gicv3-active",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9824"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "its-introspection",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9826"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "its-trigger",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9829"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "its-migration",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9833"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "its-pending-migration",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9835"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "its-migrate-unmapped-collection",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9838"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "psci",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9841"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "timer",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9844"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "micro-bench",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9847"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "cache",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9850"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-bp",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9853"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-bp-migration",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9856"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-wp",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9859"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-wp-migration",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9862"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-sstep",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9865"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "debug-sstep-migration",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9868"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "fpu-context",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9871"
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "mte-sync",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9874",
+     "justified": {
+      "reason": "Kodiak's Cortex-A78/A55 cores do not implement MTE",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "mte-async",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9877",
+     "justified": {
+      "reason": "Kodiak's Cortex-A78/A55 cores do not implement MTE",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-unit-tests",
+     "name": "mte-asymm",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9880",
+     "justified": {
+      "reason": "Kodiak's Cortex-A78/A55 cores do not implement MTE",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "kvm-guest",
+     "name": "guest-boot",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9920"
+    },
+    {
+     "suite": "kvm-guest",
+     "name": "guest-vcpus",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9923"
+    },
+    {
+     "suite": "kvm-guest",
+     "name": "guest-command",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9926"
+    },
+    {
+     "suite": "kvm-guest",
+     "name": "guest-shutdown",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L9929"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu3",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15020"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu4",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15023"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu5",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15026"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu6",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15029"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu7",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15032"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-total-cycles",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15035"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-online-mask-restored",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15038"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu0",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14956"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14961"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu2",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14963"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu3",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14966"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu4",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14970"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu5",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14972"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu6",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14975"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-idle-cpu7",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14979"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu0",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14981"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14985"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu2",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14987"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu3",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14990"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu4",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14993"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu5",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14996"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu6",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L14999"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-load-cpu7",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15002"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-all-together",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15005"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-online-mask-restored",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15008"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu0",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15011"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15014"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "race-cpu2",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15017"
+    },
+    {
+     "suite": "cpu-hotplug",
+     "name": "hotplug-kernel-clean",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15042"
+    },
+    {
+     "suite": "kernel-health",
+     "name": "kernel-warning",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15071"
+    },
+    {
+     "suite": "kernel-health",
+     "name": "kernel-bug",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15074"
+    },
+    {
+     "suite": "kernel-health",
+     "name": "kernel-oops",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15077"
+    },
+    {
+     "suite": "kernel-health",
+     "name": "kernel-call-trace",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15080"
+    },
+    {
+     "suite": "kernel-health",
+     "name": "kernel-panic",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15086"
+    },
+    {
+     "suite": "boot-fingerprint-after-reboot",
+     "name": "fingerprint-linux",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16543"
+    },
+    {
+     "suite": "boot-fingerprint-after-reboot",
+     "name": "fingerprint-rootfs",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16546"
+    },
+    {
+     "suite": "boot-fingerprint-after-reboot",
+     "name": "fingerprint-firmware-dmi",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16550"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "boot-cpu",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16599"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "cpus-online",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16601"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "cpus-exception-level",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16604"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "kvm-initialized",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16606"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "kvm-device",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16610"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "tee-driver",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16613"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "tee-device",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16616"
+    },
+    {
+     "suite": "boot-handoff-after-reboot",
+     "name": "psci-cpu-pm-domain-mode",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16620"
+    },
+    {
+     "suite": "kernel-health-after-reboot",
+     "name": "kernel-warning",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16649"
+    },
+    {
+     "suite": "kernel-health-after-reboot",
+     "name": "kernel-bug",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16652"
+    },
+    {
+     "suite": "kernel-health-after-reboot",
+     "name": "kernel-oops",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16655"
+    },
+    {
+     "suite": "kernel-health-after-reboot",
+     "name": "kernel-call-trace",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16658"
+    },
+    {
+     "suite": "kernel-health-after-reboot",
+     "name": "kernel-panic",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16662"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "psci-mode",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16818"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-wfi-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16821"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-wfi-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16824"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-wfi-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16827"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-wfi-entered",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16830"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-wfi-refused",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16833"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16836"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16839"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16842"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-0-entered",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16845"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-0-refused",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16848"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-1-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16851"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-1-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16854"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-1-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16857"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-1-entered",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16860"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-0-1-refused",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16863"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16866"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16869"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16872"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-0-entered",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16875"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-0-refused",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16878"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-1-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16881"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-1-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16884"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-1-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16887"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-1-entered",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16890"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "cpuidle-cpu-sleep-1-1-refused",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16893"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu0-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16896"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu0-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16899"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu0-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16902"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu1-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16905"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu1-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16908"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu1-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16911"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu2-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16914"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu2-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16917"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu2-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16920"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu3-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16923"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu3-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16926"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu3-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16929"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu4-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16932"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu4-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16935"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu4-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16937"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu5-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16941"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu5-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16944"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu5-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16947"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu6-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16949"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu6-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16953"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu6-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16956"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu7-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16959"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu7-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16962"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu7-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16965"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s0-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16968"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s0-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16971"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s0-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16974"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s1-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16977"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s1-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16980"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s1-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16983"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s2-usage",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16986"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s2-rejected",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16989"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-s2-residency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16992"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu0-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16995"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu1-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L16998"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu2-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17001"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu3-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17004"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu4-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17007"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu5-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17009"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu6-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17013"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cpu7-reached",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17016"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "genpd-power-domain-cluster-reached",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17019"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-supported",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17280"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-duration",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17284"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17286"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-rtc-wake",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17289"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-devices-back",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17292"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-kernel-clean",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17295"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-s2idle-residency-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17298"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-s2idle-us-per-entry-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17301"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-s2idle-deepest",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17304"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu0-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17307"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu1-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17310"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu2-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17313"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu3-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17316"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu4-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17318"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu5-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17322"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu6-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17325"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cpu7-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17328"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cluster-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17331"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cluster-s1-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17334"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-1-genpd-power-domain-cluster-s2-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17337"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-duration",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17340"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17342"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-rtc-wake",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17346"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-devices-back",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17349"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-kernel-clean",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17352"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-s2idle-residency-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17355"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-s2idle-us-per-entry-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17358"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-s2idle-deepest",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17361"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu0-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17364"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu1-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17367"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu2-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17370"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu3-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17373"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu4-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17376"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu5-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17379"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu6-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17382"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cpu7-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17385"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cluster-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17388"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cluster-s1-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17391"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-2-genpd-power-domain-cluster-s2-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17394"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-duration",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17397"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17400"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-rtc-wake",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17403"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-devices-back",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17406"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-kernel-clean",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17409"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-s2idle-residency-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17412"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-s2idle-us-per-entry-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17415"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-s2idle-deepest",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17418"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu0-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17421"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu1-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17424"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu2-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17427"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu3-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17430"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu4-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17433"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu5-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17436"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu6-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17439"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cpu7-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17442"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cluster-s0-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17445"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cluster-s1-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17448"
+    },
+    {
+     "suite": "suspend-idle",
+     "name": "suspend-s2idle-3-genpd-power-domain-cluster-s2-s2idle",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L17452"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "boot-cpu",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2257"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "cpus-online",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2260"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "cpus-exception-level",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2263"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "kvm-initialized",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2266"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "kvm-device",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2269"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "tee-driver",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2272"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "tee-device",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2275"
+    },
+    {
+     "suite": "boot-handoff",
+     "name": "psci-cpu-pm-domain-mode",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2279"
+    },
+    {
+     "suite": "warm-reboot",
+     "name": "reboot",
+     "result": "pass"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "cpufreq-policies",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2359"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy0-min",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2361"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy0-max",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2364"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy0-runtime-ratio",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2367"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy4-min",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2370"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy4-max",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2372"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy4-runtime-ratio",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2376"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy7-min",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2379"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy7-max",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2382"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy7-runtime-ratio",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2385"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "stress-ng-load",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2388"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy0-scales-under-load",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2391"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy4-scales-under-load",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2394"
+    },
+    {
+     "suite": "cpufreq-policy",
+     "name": "policy7-scales-under-load",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2398"
+    },
+    {
+     "suite": "poweroff",
+     "name": "poweroff",
+     "result": "pass"
+    },
+    {
+     "suite": "remoteproc-smoke",
+     "name": "remoteproc-device-exists",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2431"
+    },
+    {
+     "suite": "remoteproc-smoke",
+     "name": "remoteproc-adsp-running",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2434"
+    },
+    {
+     "suite": "remoteproc-smoke",
+     "name": "remoteproc-adsp-no-crash",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2437"
+    },
+    {
+     "suite": "remoteproc-smoke",
+     "name": "remoteproc-cdsp-running",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2440"
+    },
+    {
+     "suite": "remoteproc-smoke",
+     "name": "remoteproc-cdsp-no-crash",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2442"
+    },
+    {
+     "suite": "fastrpc",
+     "name": "fastrpc-adsp",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2473"
+    },
+    {
+     "suite": "fastrpc",
+     "name": "fastrpc-cdsp",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2476"
+    },
+    {
+     "suite": "fastrpc",
+     "name": "fastrpc-cdsp-unsigned-pd",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2480"
+    },
+    {
+     "suite": "inference",
+     "name": "inference-model",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2649"
+    },
+    {
+     "suite": "inference",
+     "name": "inference-qairt",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2654"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-qnn-run",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2656"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-qnn-top1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2659"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-qnn-latency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2661"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-qnn-latency-p50",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2665"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-qnn-latency-p90",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2668"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-ready",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2671"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-run",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2673"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-top1",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2677"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-vs-cpu",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2680"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-vs-host",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2683"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-latency",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2686"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-latency-p50",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2689"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-latency-p90",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2692"
+    },
+    {
+     "suite": "inference",
+     "name": "npu0-qnn-htp-speedup",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2695"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-run",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2698"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-top1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2701"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-vs-host",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2704"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-latency",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2707"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-latency-p50",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2710"
+    },
+    {
+     "suite": "inference",
+     "name": "cpu-tflite-latency-p90",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2713"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-ready",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2716"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-run",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2719"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-top1",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2722"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-vs-cpu",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2725"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-latency",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2728"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-latency-p50",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2731"
+    },
+    {
+     "suite": "inference",
+     "name": "gpu-tflite-gpu-latency-p90",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2735"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "alsa-card",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2796"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "playback",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2800"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "dsp-restart-idle",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2807"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "controls-after-restart",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2809"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "playback-after-restart",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2813"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "dsp-restart-during-playback",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2816"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "stream-ends-after-restart",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2819"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "playback-after-busy-restart",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2822"
+    },
+    {
+     "suite": "alsa-dsp-restart",
+     "name": "kernel-clean-after-restart",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2825"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-start-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2917"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "adsp-present",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2884"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "adsp",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2887",
+     "justified": {
+      "reason": "the Linux audio drivers do not survive an ADSP stop (declared expected failure; Linux, not firmware)",
+      "evidence": "https://lava.infra.foundries.io/scheduler/job/540899",
+      "reviewer": "proposed (Tyler reviews it with this file)"
+     }
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-present",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2890"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-stop-1",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2893"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-offline-1",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2896"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-start-1",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2899"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-running-1",
+     "result": "fail",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2902"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-channels-1",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2904"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-kernel-clean-1",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2908"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-stop-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2911"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-offline-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2914"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-running-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2920"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-channels-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2922"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-kernel-clean-2",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2926"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-stop-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2929"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-offline-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2932"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-start-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2935"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-running-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2938"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-channels-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2941"
+    },
+    {
+     "suite": "remoteproc-restart",
+     "name": "cdsp-kernel-clean-3",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2945"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "xtest-existence-check",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8466"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "xtest-run",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8470"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1001",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8472"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1002",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8475"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1003",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8479"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1004",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8481"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1005",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8483"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1006",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8487"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1007",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8490"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1008",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8492"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1009",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8495"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1010",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8498"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1011",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8501"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1012",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8504"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1013",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8507"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1015",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8511"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1016",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8514"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1017",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8517"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1018",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8520"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1019",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8522"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1020",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8525"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1021",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8528"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1022",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8531"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1023",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8534"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1025",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8537"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1026",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8541"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1027",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8544"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1028",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8546"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1029",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8549"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1030",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8552"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1031",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8555"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1032",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8558"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1033",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8561"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1034",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8564"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1036",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8567"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1037",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8570"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1038",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8574"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1039",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8577"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1040",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8580"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1041",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8582"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1042",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8585"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1043",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8588"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_1045",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8591"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_2001",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8594"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_2002",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8598"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_2003",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8601"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_2004",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8604"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4001",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8606"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4002",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8609"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4003",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8612"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4004",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8615"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4005",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8618"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4006_dsa",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8622"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4006_ecdsa",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8625"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4006_rsa",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8628"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4006_sm2",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8631"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_dh",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8634"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_dsa",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8637"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_ecc",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8640"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_ed25519",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8643"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_rsa",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8646"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_symmetric",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8649"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4007_x25519",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8652"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4008",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8655"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4009",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8658"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4010",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8661"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4011",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8664"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4012",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8667"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4013",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8669"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4014",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8672"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4015",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8675"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4016",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8678"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4017",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8681"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4018",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8684"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4019",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8687"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4020",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8690"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4101",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8693"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4102",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8697"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4103",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8700"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4104",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8703"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4105",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8706"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4106",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8708"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4107",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8711"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4108",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8714"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4109",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8717"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4110",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8721"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4111",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8724"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4112",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8727"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4113",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8729"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4114",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8732"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4115",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8735"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4116",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8738"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_4117",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8741"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_5006",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8744"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6001",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8747"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6002",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8751"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6003",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8754"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6004",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8756"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6005",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8759"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6006",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8762"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6007",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8765"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6008",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8768"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6009",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8771"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6010",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8774"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6012",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8778"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6013",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8781"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6014",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8784"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6015",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8787"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6016",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8790"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6017",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8792"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6018",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8795"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6019",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8798"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6020",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8801"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6021",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8804"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6022",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8807"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_6023",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8811"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_8001",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8813"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_8002",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8816"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_8101",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8819"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_8102",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8822"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "regression_8103",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8825"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "subtests-fail-rate",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8829"
+    },
+    {
+     "suite": "optee-xtest",
+     "name": "test-cases-fail-rate",
+     "result": "pass",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8833"
+    },
+    {
+     "suite": "tee-shm-reclaim",
+     "name": "tee-shm-reclaim-open",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8862"
+    },
+    {
+     "suite": "tee-shm-reclaim",
+     "name": "tee-shm-reclaim-1p",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8864"
+    },
+    {
+     "suite": "tee-shm-reclaim",
+     "name": "tee-shm-reclaim-64p",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8868"
+    },
+    {
+     "suite": "tee-shm-reclaim",
+     "name": "tee-shm-reclaim-1024p",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8871"
+    },
+    {
+     "suite": "tee-shm-reclaim",
+     "name": "tee-shm-reclaim-no-reclaim-error",
+     "result": "skip",
+     "url": "https://lava.infra.foundries.io/scheduler/job/547797#L8875"
+    },
+    {
+     "suite": "firmware-fingerprint-cold",
+     "name": "bl2",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-cold",
+     "name": "bl31",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-cold",
+     "name": "op_tee_version",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-cold",
+     "name": "u_boot",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-warm",
+     "name": "bl2",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-warm",
+     "name": "bl31",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-warm",
+     "name": "op_tee_version",
+     "result": "pass"
+    },
+    {
+     "suite": "firmware-fingerprint-warm",
+     "name": "u_boot",
+     "result": "pass"
+    },
+    {
+     "suite": "stock-restore",
+     "name": "uefi_ver",
+     "result": "pass"
+    },
+    {
+     "suite": "stock-restore",
+     "name": "uefi_ver",
+     "result": "pass"
+    }
+   ],
+   "fingerprint_gate": "pass",
+   "linux_boot": {
+    "verdict": "pass",
+    "stage": "login",
+    "url": "https://lava.infra.foundries.io/scheduler/job/547797#L2130"
+   },
+   "boot_time": {
+    "version": 1,
+    "tool": "lava-boottime daf3b44940e8",
+    "boots": [
+     {
+      "kind": "first",
+      "ref_line": 784,
+      "url": "https://lava.infra.foundries.io/scheduler/job/547797#L784",
+      "complete": true,
+      "last_stage": "login",
+      "reset": null,
+      "fastboot": false,
+      "stages": {
+       "loader": {
+        "t": 2.425,
+        "line": 801,
+        "replayed": true
+       },
+       "loader_end": {
+        "t": 3.14,
+        "line": 997,
+        "replayed": false
+       },
+       "bl2": {
+        "t": 3.156,
+        "line": 1003,
+        "replayed": false
+       },
+       "bl31": {
+        "t": 3.188,
+        "line": 1010,
+        "replayed": false
+       },
+       "optee": {
+        "t": 3.572,
+        "line": 1022,
+        "replayed": false
+       },
+       "uboot": {
+        "t": 4.132,
+        "line": 1034,
+        "replayed": false
+       },
+       "linux": {
+        "t": 6.248,
+        "line": 1110,
+        "replayed": false
+       },
+       "init": {
+        "t": 52.693,
+        "line": 2082,
+        "replayed": false
+       },
+       "login": {
+        "t": 53.35,
+        "line": 2121,
+        "replayed": false
+       }
+      }
+     },
+     {
+      "kind": "warm-reboot",
+      "ref_line": 15128,
+      "url": "https://lava.infra.foundries.io/scheduler/job/547797#L15128",
+      "complete": true,
+      "last_stage": "login",
+      "reset": null,
+      "fastboot": false,
+      "stages": {
+       "loader": {
+        "t": 0.272,
+        "line": 15141,
+        "replayed": false
+       },
+       "loader_end": {
+        "t": 1.501,
+        "line": 15337,
+        "replayed": false
+       },
+       "bl2": {
+        "t": 1.533,
+        "line": 15343,
+        "replayed": false
+       },
+       "bl31": {
+        "t": 1.568,
+        "line": 15350,
+        "replayed": false
+       },
+       "optee": {
+        "t": 1.949,
+        "line": 15362,
+        "replayed": false
+       },
+       "uboot": {
+        "t": 2.512,
+        "line": 15374,
+        "replayed": false
+       },
+       "linux": {
+        "t": 4.572,
+        "line": 15430,
+        "replayed": false
+       },
+       "init": {
+        "t": 50.766,
+        "line": 16423,
+        "replayed": false
+       },
+       "login": {
+        "t": 51.47,
+        "line": 16462,
+        "replayed": false
+       }
+      }
+     },
+     {
+      "kind": "cold",
+      "ref_line": 18217,
+      "url": "https://lava.infra.foundries.io/scheduler/job/547797#L18217",
+      "complete": false,
+      "last_stage": "init",
+      "reset": 2.535,
+      "fastboot": false,
+      "stages": {
+       "loader": {
+        "t": 2.422,
+        "line": 18228,
+        "replayed": true
+       },
+       "loader_end": {
+        "t": 2.44,
+        "line": 18424,
+        "replayed": true
+       },
+       "bl2": {
+        "t": 2.44,
+        "line": 18428,
+        "replayed": true
+       },
+       "bl31": {
+        "t": 2.44,
+        "line": 18431,
+        "replayed": true
+       },
+       "optee": {
+        "t": 2.44,
+        "line": 18435,
+        "replayed": true
+       },
+       "uboot": {
+        "t": 2.441,
+        "line": 18443,
+        "replayed": true
+       },
+       "linux": {
+        "t": 2.447,
+        "line": 18501,
+        "replayed": true
+       },
+       "init": {
+        "t": 2.532,
+        "line": 19475,
+        "replayed": true
+       }
+      }
+     }
+    ],
+    "headline": 2
+   },
+   "verdict": "fail",
+   "counts": {
+    "pass": 388,
+    "fail": 42,
+    "skip": 40,
+    "unknown": 0,
+    "justified": 9,
+    "flaky": 0
+   },
+   "restore": {
+    "result": "pass"
    }
   }
  ]
