@@ -1,0 +1,67 @@
+{
+ "schema": "ossci-index/1",
+ "updated": "2026-11-07T00:02:27Z",
+ "latest_nightly": {},
+ "runs": [
+  {
+   "id": "42315452684-1",
+   "kind": "adhoc",
+   "title": "RB3 Gen 2 baseline via workflow_dispatch (phase 2)",
+   "requester": "oss-fw-ci phase-2 agent",
+   "created": "2026-11-07T00:02:24Z",
+   "updated": "2026-11-07T00:02:25Z",
+   "state": "done",
+   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42315452684",
+   "driver": "workflow",
+   "inputs": {
+    "tfa": {
+     "role": "baseline",
+     "commit": "95a4c903a8389bd5d264097131a271b96f6349c0",
+     "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
+     "ref": "qcom/integration-20261102g",
+     "pending": null
+    },
+    "optee": {
+     "role": "baseline",
+     "commit": "b5e5f7a0f85aff4d1da7077370b74f2c63b89394",
+     "repo": "https://github.com/EmbeddedAndroid/optee_os",
+     "ref": "qcom/integration-20261105",
+     "pending": null
+    },
+    "uboot": {
+     "role": "baseline",
+     "commit": "55f4e43a871d787d66ee98ef0d3e605abe3076f4",
+     "repo": "https://github.com/EmbeddedAndroid/u-boot",
+     "ref": "qcom/integration-20261105a",
+     "pending": null
+    },
+    "linux": {
+     "role": "baseline",
+     "commit": "b5e84377bb7a1d0390410c5d73620b340f6a9df9",
+     "repo": "https://github.com/qualcomm-linux/kernel-topics",
+     "ref": "kodiak-oss-fw-ci-baseline",
+     "pending": "kernel-topics 9226b98151 plus 9 Kodiak commits, not published"
+    }
+   },
+   "rootfs": {
+    "commit": "79369f48964864906e522d024b76a30068599ea7",
+    "upstream": false,
+    "note": "qcom-buildroot qcom-test-suite (test-config PR, not opened yet)"
+   },
+   "suite": "81c6b8ef967cf0ee412e860abeeca28e0696745a",
+   "targets": [
+    {
+     "board": "rb3gen2",
+     "state": "skipped",
+     "state_detail": "linux baseline b5e84377bb7a not public (kernel-topics 9226b98151 plus 9 Kodiak commits, not published): give a linux input; rootfs pin qcom-buildroot 79369f489648 not public yet (qcom-buildroot qcom-test-suite (test-config PR, not opened yet))",
+     "queue_position": null,
+     "fingerprint_gate": "not-run",
+     "verdict": "not-run",
+     "counts": {},
+     "lava": null,
+     "diff": null
+    }
+   ]
+  }
+ ]
+}

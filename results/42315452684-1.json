@@ -1,0 +1,86 @@
+{
+ "schema": "ossci-run/1",
+ "run": {
+  "id": "42315452684-1",
+  "kind": "adhoc",
+  "title": "RB3 Gen 2 baseline via workflow_dispatch (phase 2)",
+  "requester": "oss-fw-ci phase-2 agent",
+  "created": "2026-11-07T00:02:24Z",
+  "updated": "2026-11-07T00:02:25Z",
+  "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42315452684",
+  "driver": "workflow",
+  "baseline": null
+ },
+ "state": "done",
+ "inputs": {
+  "tfa": {
+   "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
+   "ref": "qcom/integration-20261102g",
+   "commit": "95a4c903a8389bd5d264097131a271b96f6349c0",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "optee": {
+   "repo": "https://github.com/EmbeddedAndroid/optee_os",
+   "ref": "qcom/integration-20261105",
+   "commit": "b5e5f7a0f85aff4d1da7077370b74f2c63b89394",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "uboot": {
+   "repo": "https://github.com/EmbeddedAndroid/u-boot",
+   "ref": "qcom/integration-20261105a",
+   "commit": "55f4e43a871d787d66ee98ef0d3e605abe3076f4",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  },
+  "linux": {
+   "repo": "https://github.com/qualcomm-linux/kernel-topics",
+   "ref": "kodiak-oss-fw-ci-baseline",
+   "commit": "b5e84377bb7a1d0390410c5d73620b340f6a9df9",
+   "pending": "kernel-topics 9226b98151 plus 9 Kodiak commits, not published",
+   "role": "baseline",
+   "input": {
+    "kind": "baseline"
+   }
+  }
+ },
+ "suite": {
+  "repo": "https://github.com/EmbeddedAndroid/test-definitions.git",
+  "branch": "openbootstack-tests",
+  "commit": "81c6b8ef967cf0ee412e860abeeca28e0696745a",
+  "plan": "plans/open-boot-stack/open-boot-stack.yaml",
+  "exclude": {
+   "systemready-acs": "the ACS boots an image of its own, not the stack under test",
+   "maxcpus": "needs a job booting with maxcpus=N (not generated yet)",
+   "memtest": "needs a job booting with memtest=N (not generated yet)"
+  }
+ },
+ "rootfs": {
+  "repo": "https://github.com/qualcomm-linux/qcom-buildroot.git",
+  "commit": "79369f48964864906e522d024b76a30068599ea7",
+  "upstream": false,
+  "note": "qcom-buildroot qcom-test-suite (test-config PR, not opened yet)"
+ },
+ "targets": [
+  {
+   "board": "rb3gen2",
+   "device_type": "qcs6490-rb3gen2",
+   "state": "skipped",
+   "fingerprint": "ossci-42315452684-1-rb3gen2",
+   "bl2": {
+    "release": "bl2-rb3gen2-QCDFP-261102-526",
+    "file": "tz-rb3gen2.mbn",
+    "sha256": "29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5",
+    "fingerprint": "QCDFP-261102-526"
+   },
+   "state_detail": "linux baseline b5e84377bb7a not public (kernel-topics 9226b98151 plus 9 Kodiak commits, not published): give a linux input; rootfs pin qcom-buildroot 79369f489648 not public yet (qcom-buildroot qcom-test-suite (test-config PR, not opened yet))"
+  }
+ ]
+}
