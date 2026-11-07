@@ -20,8 +20,9 @@ while [ $# -gt 0 ]; do
 done
 cd ~/oss-fw-ci
 c() { sg docker -c "$(printf '%q ' env OSSCI_IMAGE=ossci-control:1 scripts/in-container.sh "$@")"; }
-b() { sg docker -c "$(printf '%q ' env OSSCI_IMAGE=ossci-build:1 scripts/in-container.sh "$@")"; }
-r() { sg docker -c "$(printf '%q ' env OSSCI_IMAGE=ossci-rootfs:1 scripts/in-container.sh "$@")"; }
+# The build and rootfs containers run code under test: no token in them.
+b() { sg docker -c "$(printf '%q ' env -u LAVA_TOKEN -u OSSCI_PRIVATE_TOKEN OSSCI_IMAGE=ossci-build:1 scripts/in-container.sh "$@")"; }
+r() { sg docker -c "$(printf '%q ' env -u LAVA_TOKEN -u OSSCI_PRIVATE_TOKEN OSSCI_IMAGE=ossci-rootfs:1 scripts/in-container.sh "$@")"; }
 doc=work/$id.json
 td=$(c python3 -m ossci.config top suite commit)
 log() { echo "$(date -u +%FT%TZ) $*"; }
