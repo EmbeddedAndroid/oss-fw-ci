@@ -255,6 +255,11 @@ def do_collect(a, lava=None):
         base = {k: v for k, v in t.items() if k not in ("cases", "diff", "verdict", "counts")}
         base["stack"] = "open"
         nt = collect.target(base, b, j, lava.results(t["lava"]["job_id"]), entries, url, log, flakes, table)
+        if not jobs.restored(nt.get("cases", [])):
+            nt["restore"] = backstop(lava, t["board"], b, nt["lava"].get("device") or t["lava"].get("device"),
+                                     doc["run"]["id"])
+        else:
+            nt["restore"] = {"result": "pass"}
         spec = a.baseline or (site_baseline(a.baseline_site, t["board"]) if a.baseline_site else "")
         bt, bid = baseline_target(spec, t["board"], lava)
         if bt is not None:
@@ -263,6 +268,22 @@ def do_collect(a, lava=None):
         doc["targets"][i] = nt
     doc["state"] = overall(doc)
     save(a.doc, doc)
+
+
+def backstop(lava, board_name, board, device, run_id):
+    """Submit the restore-only job for a device a job left on our image;
+    never raises (the result says what happened)."""
+    from fwci.lava_mcp import Rejected
+    if not device:
+        return {"result": "fail", "note": "no device recorded: restore by hand"}
+    try:
+        job_id = lava.submit(lava_jobs.to_yaml(jobs.restore_job(board_name, board, device, {"run": run_id})))
+    except Rejected as e:
+        return {"result": "fail", "note": "backstop refused: %s" % e.message[:200]}
+    except Exception as e:
+        return {"result": "fail", "note": "backstop submit outcome unknown: %s" % type(e).__name__}
+    return {"result": "backstop", "backstop_job": job_id,
+            "backstop_url": "%s/scheduler/job/%d" % (LAVA_URL, job_id), "device": device}
 
 
 def finished(a):

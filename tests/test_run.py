@@ -117,3 +117,17 @@ def test_preflight_reasons():
                                                       "source": {"repo": None, "note": "PR"}})
     assert len(r) == 2 and "linux baseline" in r[0] and "rootfs pin" in r[1]
     assert preflight.reasons(resolved(), {"commit": SHA, "upstream": True, "source": {}}) == []
+
+
+def test_backstop_restore_job_when_the_restore_did_not_pass(board):
+    from ossci import jobs
+    assert jobs.restored([{"suite": "stock-restore", "name": "uefi_ver", "result": "pass"}])
+    assert not jobs.restored([{"suite": "stock-restore", "name": "uefi_ver", "result": "skip"}])
+    assert not jobs.restored([])
+    lava = FakeLava()
+    r = run.backstop(lava, "rb3gen2", board, "rb3g2-01", "1-1")
+    assert r["result"] == "backstop" and r["backstop_job"] == 777
+    y = lava.submitted[0]
+    assert "device: rb3g2-01" in y and "stock-restore" in y and "qcomflash" in y
+    assert "lava-test-shell" not in y and "definitions" not in y
+    assert run.backstop(lava, "rb3gen2", board, None, "1-1")["result"] == "fail"

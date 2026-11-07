@@ -155,3 +155,23 @@ def redact(job):
     """A copy safe to print or publish: token names stay (they name a lab
     secret, they are not one), nothing else is secret in a job."""
     return copy.deepcopy(job)
+
+
+def restore_job(board_name, board, device, run_meta):
+    """A job that only puts the lab's own image back on device: the
+    backstop for a job that ended before its restore (a login that never
+    came is a job error, which no timeout skip covers)."""
+    lv = board["lava"]
+    meta = dict(run_meta, board=board_name, purpose="stock restore backstop")
+    job = lava_jobs.job(lv["device_type"], "oss-fw-ci %s stock restore backstop" % board_name, restore(board),
+                        {k: str(v) for k, v in meta.items()}, job_minutes=60)
+    job["device"] = device
+    if lv.get("tags"):
+        job["tags"] = list(lv["tags"])
+    return job
+
+
+def restored(cases):
+    """Whether the job's stock restore passed."""
+    got = [c["result"] for c in cases if c["suite"] == "stock-restore"]
+    return bool(got) and all(r == "pass" for r in got)
