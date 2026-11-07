@@ -5,18 +5,19 @@
 # qcom-buildroot first, then this pin moves. Built once per
 # (commit, test-definitions commit, makefile) and cached.
 repo: https://github.com/qualcomm-linux/qcom-buildroot.git
-commit: 79369f48964864906e522d024b76a30068599ea7
-# The pin waits on qcom-buildroot's test-config PR (QEMU kvm-unit-tests,
-# tee-shm-reclaim, suspend-idle): until it lands upstream the pin is that
-# branch, which the dashboard marks "not yet upstream".
-upstream: false
-source:
-  # Where the pinned commit can be fetched while it is not upstream.
-  # null: nowhere public yet (the rootfs job then skips every board with
-  # this reason, never with a URL).
-  repo: null
-  branch: qcom-test-suite
-  note: qcom-buildroot qcom-test-suite (test-config PR, not opened yet)
+# main, the newest public commit (2026-11-07).
+commit: 6bd87d78b36e48446635dd3567e0931903cb7525
+upstream: true
+# Where a pin that is not upstream can be fetched ({repo, branch, note};
+# repo null: nowhere public, the rootfs job then skips every board with
+# the note). Not needed while the pin is on main.
+source: null
+# Pin watch: main has no test packages for tee-shm-reclaim and
+# suspend-idle and no QEMU kvm-unit-tests (QCOM_TESTS names them; the
+# makefile ignores names it does not know). The pin moves to the commit
+# of qcom-buildroot's test-config PR once it lands on main
+# (config/justifications.yaml lists what that gap costs).
+watch: qcom-buildroot test-config PR (qcom-test-suite 79369f4, not opened yet)
 # repo manifest of the tree; the `build` project is replaced by the
 # pinned checkout.
 manifest: manifests/kodiak.xml

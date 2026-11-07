@@ -33,7 +33,7 @@ def test_new_document_validates(tmp_path):
     t = d["targets"][0]
     assert t["fingerprint"] == "ossci-123-1-rb3gen2" and t["state"] == "building"
     assert t["bl2"]["fingerprint"] == "QCDFP-261102-526" and t["bl2"]["secret"] == "PIN_BL2_RB3GEN2"
-    assert d["rootfs"]["upstream"] is False and d["suite"]["commit"]
+    assert d["rootfs"]["upstream"] is True and d["suite"]["commit"]
 
 
 def test_bad_run_id_and_board_refused(tmp_path):

@@ -22,7 +22,9 @@ key=$(cd "$repo" && python3 -m ossci.rootfs key "$td" "$arch")
 ws=${OSSCI_WORK:-$repo/work}/rootfs-ws
 mkdir -p "$ws"
 cd "$ws"
-src=$(pin source.repo); [ "$src" = None ] && src=
+src=$(pin source.repo 2>/dev/null) || src=
+[ "$src" = None ] && src=
+[ -z "$src" ] && [ "$(pin upstream)" = True ] && src=$(pin repo)
 if [ -n "$given" ]; then
 	bundle=$given
 elif [ -n "$src" ]; then

@@ -8,7 +8,8 @@ Every pin is a reviewed change to a file of `config/`:
   The list of tests is the plan at that commit; nothing else adds to it.
 - `rootfs.yaml`: qcom-buildroot repository and **commit**, `upstream`
   (false while the pin is not an upstream commit), where the commit can
-  be fetched meanwhile (`source.repo`, null when nowhere public), the
+  be fetched meanwhile (`source.repo`, null when nowhere public), `watch`
+  (the upstream change the pin moves to once it lands), the
   repo manifest, and per architecture the makefile, make arguments and
   output, and `manifest_overrides`: a revision for a project the
   manifest leaves on a moving branch that no longer builds with the
@@ -29,12 +30,12 @@ Every pin is a reviewed change to a file of `config/`:
 - `justifications.yaml`: the only way a case may end other than pass.
 - `flakes.yaml`, `known-errors.yaml`: as in u-boot-ci.
 
-## Today (2026-11-06)
+## Today (2026-11-07)
 
 | pin | value | public |
 |---|---|---|
 | suite | EmbeddedAndroid/test-definitions openbootstack-tests 81c6b8ef | yes |
-| rootfs | qcom-buildroot qcom-test-suite 79369f4 (test-config PR, not opened) | no: the dashboard marks it not yet upstream |
+| rootfs | qualcomm-linux/qcom-buildroot main 6bd87d7, TEST=y | yes; watch: the test-config PR (qcom-test-suite 79369f4) for tee-shm-reclaim, suspend-idle and the QEMU kvm-unit-tests |
 | rootfs override | optee_test 953c169 (manifest leaves it on master; master since 00d4f0e needs an ASLR PTA the pinned optee_os 9bcaec96 lacks) | yes (qcom-buildroot fix needed) |
 | TF-A | EmbeddedAndroid qcom/integration-20261102g 95a4c903a | yes |
 | OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f | yes |
