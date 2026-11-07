@@ -76,8 +76,11 @@ boards:
       # signed with the OEM TEST key of the public sectools.
       fip: qtestsign
     bl2:
-      private: TF-A BL2 of qcom/integration-20261102g, OEM test signed (not redistributable)
-      release: bl2-rb3gen2-QCDFP-261102-526
+      # TF-A BL2 of qcom/integration-20261102g, OEM test signed (the BL2 of
+      # LAVA 540899). Not redistributable: the submit job reads it (gzip +
+      # base64) from this secret of the lava-hw environment, as u-boot-ci;
+      # the lease driver stages it in $OSSCI_WORK/pins.
+      secret: PIN_BL2_RB3GEN2
       file: tz-rb3gen2.mbn
       sha256: 29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5
       fingerprint: QCDFP-261102-526

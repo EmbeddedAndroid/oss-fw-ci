@@ -16,20 +16,49 @@ lease at a time; 4 is enough for one RB3 Gen 2 run and the unit tests).
 ## Environment `lava-hw`
 
 Created with deployment branches `main` only and no reviewer (as
-u-boot-ci's). Only `submit` and `track` declare it. Secrets (Tyler adds
-them by hand: Settings, Environments, lava-hw, Add environment secret,
-or `gh secret set <NAME> --env lava-hw --repo EmbeddedAndroid/oss-fw-ci`,
-which prompts for the value):
+u-boot-ci's). Only `submit` and `track` declare it. No secret is set at
+repository level. Secrets (Tyler adds them by hand: Settings,
+Environments, lava-hw, Add environment secret, or
+`gh secret set <NAME> --env lava-hw --repo EmbeddedAndroid/oss-fw-ci`,
+which prompts for the value), the same values as u-boot-ci's:
 
 | secret | content |
 |---|---|
-| `LAVA_TOKEN` | the LAVA token of the CI user (u-boot-ci uses `robotyler`) |
-| `OSSCI_PRIVATE_TOKEN` | a fine-grained personal access token of EmbeddedAndroid: repository access only `EmbeddedAndroid/oss-fw-ci-private`, permission Contents read-only, nothing else, an expiry of a year at most |
+| `LAVA_TOKEN` | the LAVA token of the CI user `robotyler` |
+| `PIN_BL2_RB3GEN2` | the open-stack tz image (`tz.mbn`) of RB3 Gen 2: `gzip -9 < tz-rb3gen2.mbn \| base64 -w0` |
 
+A board added later brings its own `PIN_BL2_<BOARD>` (the name is the
+board's `bl2.secret` in boards.yaml; `scripts/in-container.sh` and the
+submit job's `env` pass it through), with the value u-boot-ci holds
+under the same name.
+
+The BL2 images are not redistributable and are not published anywhere:
+the build jobs leave `tz.mbn` out of the package, and the submit job
+adds it from the secret after checking it against the sha256 pinned in
+`config/boards.yaml`. A missing or mismatching secret skips that board
+with "BL2 pin not available". The dashboard shows the sha256 only.
 Without `LAVA_TOKEN` a run builds everything and marks every board
-`skipped` ("no LAVA_TOKEN"); without `OSSCI_PRIVATE_TOKEN` a board whose
-BL2 is private is `skipped` ("BL2 pin not available"). Neither value is
-ever printed: the private store errors say only an HTTP status.
+`skipped` ("no LAVA_TOKEN"). No value is ever printed.
+
+The private store (EmbeddedAndroid/oss-fw-ci-private, read with an
+`OSSCI_PRIVATE_TOKEN` of `lava-hw`) is kept only for what u-boot-ci also
+keeps in its store: TF-A and OP-TEE images of boards whose sources CI
+may not see (Wildcat-style), pinned by release, file, sha256 and
+fingerprint (`ossci.package.private_file`). No board uses it yet, so
+the secret is not set and the workflow does not read it; a board that
+needs it adds both. To create the token: a fine-grained personal access
+token of EmbeddedAndroid, repository access only
+`EmbeddedAndroid/oss-fw-ci-private`, permission Contents read-only,
+nothing else, an expiry of a year at most (u-boot-ci docs/setup.md,
+`UBCI_PRIVATE_TOKEN`, has the steps). Its release
+bl2-rb3gen2-QCDFP-261102-526 holds the same RB3 Gen 2 BL2 as the
+secret; nothing reads it.
+
+To check a BL2 secret value before setting it, without printing it:
+
+    gzip -9 < tz-rb3gen2.mbn | base64 -w0 | base64 -d | gunzip | sha256sum
+
+must print the board's `bl2.sha256`.
 
 The LAVA user needs submit rights on every device type of boards.yaml
 and the LAVA MCP artifact store, and a remote artifact token named as
@@ -63,4 +92,7 @@ authoritative), with the operator's LAVA token in the environment only:
 the rootfs, the board build, then `ossci.run submit/monitor/collect` and
 leaves the run document in `work/`; it is published to gh-pages from the
 laptop checkout with `scripts/publish-site.sh`. Its documents say
-`driver: lease`. Release the lease at the end (`lease.py release <id>`).
+`driver: lease`. The BL2 of the board is staged on the lease as
+`work/pins/<bl2.file>` (mode 600; the submit step checks its sha256 and
+then needs no secret). Release the lease at the end
+(`lease.py release <id>`).

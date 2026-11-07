@@ -9,8 +9,9 @@
 #   build    xeon, per board: OP-TEE, U-Boot, Linux, TF-A + FIP, ESP,
 #            rootfs partition, package. Runs the code under test: no
 #            environment, no secret, read-only token not kept in the checkout.
-#   submit   arm64 2c, environment lava-hw: BL2 from the private store,
-#            upload, the job from the one template, submit.
+#   submit   arm64 2c, environment lava-hw: the BL2 from its
+#            PIN_BL2_<BOARD> secret (sha256 checked), upload, the job from
+#            the one template, submit.
 #   track    arm64 2c, environment lava-hw: monitor, collect and publish
 #            every 5 minutes until every board is final.
 #   finalize arm64 2c, only after a cancel or a failure: closes the run
@@ -196,7 +197,7 @@ jobs:
       contents: write
     env:
       LAVA_TOKEN: ${{ secrets.LAVA_TOKEN }}
-      OSSCI_PRIVATE_TOKEN: ${{ secrets.OSSCI_PRIVATE_TOKEN }}
+      PIN_BL2_RB3GEN2: ${{ secrets.PIN_BL2_RB3GEN2 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4

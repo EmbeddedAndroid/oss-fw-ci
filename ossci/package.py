@@ -9,12 +9,20 @@ uefi_a/uefi_b <- fip.elf (BL31 + OP-TEE + U-Boot of the run), efi <- the
 ESP with the UKI (Linux of the run, the pinned rootfs), rootfs <- the
 ext4 image with the test-definitions; tz is deferred: the BL2 is not
 redistributable, so the build jobs (which hold no secret) leave it out
-and the submit job adds it (insert-bl2), from $OSSCI_WORK/pins when
-staged there or else from the private store (a release asset of
-EmbeddedAndroid/oss-fw-ci-private, read with $OSSCI_PRIVATE_TOKEN),
-checked against the pinned sha256 either way. SOURCES.json lists every
-file with its sha256."""
+and the submit job adds it (insert-bl2), as u-boot-ci does: from the
+environment variable the pin names (`secret`, PIN_BL2_<BOARD>: gzip -9 |
+base64 -w0 of the image), or from $OSSCI_WORK/pins when staged there (the
+lease driver), checked against the pinned sha256 either way.
+SOURCES.json lists every file with its sha256.
+
+private_file reads an image of the private store (a release asset of
+EmbeddedAndroid/oss-fw-ci-private, read with $OSSCI_PRIVATE_TOKEN): kept
+for what u-boot-ci also keeps in its store, private TF-A and OP-TEE
+images of boards whose sources CI may not see; no board uses it yet."""
+import base64
+import binascii
 import glob
+import gzip
 import hashlib
 import http.client
 import io
@@ -215,9 +223,28 @@ def private_file(pin, env=os.environ, store=PRIVATE_STORE, get=github_get):
     return data
 
 
-def insert_bl2(package, board_name, env=os.environ, board=None, get=github_get):
+def secret_file(pin, env=os.environ):
+    """A pin's bytes from the secret it names (gzip + base64), or staged
+    in $OSSCI_WORK/pins; checked against the pinned sha256. Errors never
+    quote the value."""
+    if os.path.exists(os.path.join(WORK, "pins", pin["file"])):
+        return open(fetch(None, pin["sha256"], pin["file"]), "rb").read()
+    value = env.get(pin["secret"], "").strip()
+    if not value:
+        raise SystemExit("%s is not set" % pin["secret"])
+    try:
+        data = gzip.decompress(base64.b64decode(value, validate=True))
+    except (binascii.Error, OSError, EOFError, ValueError) as e:
+        raise SystemExit("%s is not gzip + base64 (%s)" % (pin["secret"], type(e).__name__))
+    if hashlib.sha256(data).hexdigest() != pin["sha256"]:
+        raise SystemExit("%s does not match the pinned sha256" % pin["secret"])
+    return data
+
+
+def insert_bl2(package, board_name, env=os.environ, board=None):
+    """Add the deferred BL2 to a package from the secret its pin names."""
     b = board or config.board(board_name)
-    rewrite(package, {"tz.mbn": private_file(b["bl2"], env, get=get)})
+    rewrite(package, {"tz.mbn": secret_file(b["bl2"], env)})
 
 
 def sources(package):

@@ -32,7 +32,7 @@ def test_new_document_validates(tmp_path):
     schema.check(d)
     t = d["targets"][0]
     assert t["fingerprint"] == "ossci-123-1-rb3gen2" and t["state"] == "building"
-    assert t["bl2"]["fingerprint"] == "QCDFP-261102-526"
+    assert t["bl2"]["fingerprint"] == "QCDFP-261102-526" and t["bl2"]["secret"] == "PIN_BL2_RB3GEN2"
     assert d["rootfs"]["upstream"] is False and d["suite"]["commit"]
 
 
@@ -101,6 +101,30 @@ def test_submit_picks_an_idle_healthy_device_and_never_production(tmp_path, monk
     assert t["state"] == "queued" and t["lava"]["job_id"] == 777 and t["lava"]["device"] == "rb3g2-01"
     assert "device: rb3g2-01" in lava.submitted[0]
     assert "x" not in [line.split(": ")[-1] for line in lava.submitted[0].splitlines() if "Authorization" in line]
+
+
+@pytest.mark.parametrize("value, why", [(None, "PIN_BL2_RB3GEN2 is not set"),
+                                        ("H4sI", "PIN_BL2_RB3GEN2 is not gzip"),
+                                        (None, "does not match the pinned sha256")])
+def test_submit_without_a_usable_bl2_skips_the_board(tmp_path, monkeypatch, value, why):
+    import base64
+    import gzip
+    monkeypatch.setattr(run.package, "WORK", str(tmp_path))
+    monkeypatch.setenv("LAVA_TOKEN", "x")
+    if "match" in why:
+        value = base64.b64encode(gzip.compress(b"not the pinned BL2")).decode()
+    if value is None:
+        monkeypatch.delenv("PIN_BL2_RB3GEN2", raising=False)
+    else:
+        monkeypatch.setenv("PIN_BL2_RB3GEN2", value)
+    doc = new_doc(tmp_path)
+    (tmp_path / "rb3gen2.qcomflash.tar.gz").write_bytes(b"x")
+    lava = FakeLava()
+    lava.upload = lambda path: pytest.fail("uploaded a package without its BL2")
+    run.submit(argparse.Namespace(doc=str(doc), packages=str(tmp_path), td=str(tmp_path)), lava=lava)
+    t = json.load(open(doc))["targets"][0]
+    assert t["state"] == "skipped" and t["state_detail"].startswith("BL2 pin not available: ")
+    assert why in t["state_detail"] and not lava.submitted
 
 
 def test_close_after_cancel(tmp_path):

@@ -22,8 +22,9 @@ Every pin is a reviewed change to a file of `config/`:
   not public yet: the workflow then refuses to run on that baseline and
   says so (give that component as an input, or use the lease driver).
 - `boards.yaml`: per board everything the build, package, job and gate
-  need, the pinned BL2 (`release`, `file`, `sha256`, `fingerprint` in the
-  private store) and the facts (parameter values of the suite's
+  need, the pinned BL2 (`secret`, `file`, `sha256`, `fingerprint`: the
+  image is the `PIN_BL2_<BOARD>` secret of `lava-hw`, docs/setup.md) and
+  the facts (parameter values of the suite's
   definitions).
 - `justifications.yaml`: the only way a case may end other than pass.
 - `flakes.yaml`, `known-errors.yaml`: as in u-boot-ci.
@@ -39,4 +40,4 @@ Every pin is a reviewed change to a file of `config/`:
 | OP-TEE | EmbeddedAndroid qcom/integration-20261105 b5e5f7a0f | yes |
 | U-Boot | EmbeddedAndroid qcom/integration-20261105a 55f4e43a871 | yes |
 | Linux | 8bcbb1c55f01: the kernel of LAVA 540899 (kernel-topics 9226b98151 + 9 Kodiak commits, b5e84377bb7a) + kodiak-el2 DSP images from qcom/qcm6490 | no |
-| RB3 Gen 2 BL2 | QCDFP-261102-526 (oss-fw-ci-private release bl2-rb3gen2-QCDFP-261102-526) | private by design |
+| RB3 Gen 2 BL2 | QCDFP-261102-526, sha256 29344d74 (secret PIN_BL2_RB3GEN2, the image of LAVA 540899) | no, by design |

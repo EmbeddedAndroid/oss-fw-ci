@@ -59,14 +59,18 @@ component is an A/B against the baseline with everything else equal.
 
 ## Privately hosted BL2s and blobs (Nord, Shikra, Wildcat boards)
 
-As u-boot-ci's private firmware lane (docs/private-firmware.md there):
+As u-boot-ci (docs/setup.md and docs/private-firmware.md there):
 
-- A board whose BL2 (or other boot image) cannot be public pins it by
-  `{private, release, file, sha256, fingerprint}` in `boards.yaml`. The
-  bytes live as release assets of a private store repository
-  (EmbeddedAndroid/oss-fw-ci-private), read with a read-only token that is
-  a secret of the `lava-hw` environment.
-- Only the `submit` job fetches them, checks the sha256 and inserts them
+- A board whose BL2 cannot be public pins it by
+  `{secret, file, sha256, fingerprint}` in `boards.yaml`: the image is
+  the value (gzip -9, base64) of the `PIN_BL2_<BOARD>` secret of the
+  `lava-hw` environment, the same secret u-boot-ci holds for that board.
+- Private TF-A and OP-TEE images of boards whose sources CI may not see
+  (Wildcat-style) live as release assets of a private store repository
+  (EmbeddedAndroid/oss-fw-ci-private), pinned by
+  `{private, release, file, sha256, fingerprint}` and read with a
+  read-only token that is a secret of `lava-hw` (none yet).
+- Only the `submit` job reads them, checks the sha256 and inserts them
   into the package; it builds nothing from the trees under test. The build
   jobs hold no secret.
 - The fingerprint gate expects the pinned image's own fingerprint on that

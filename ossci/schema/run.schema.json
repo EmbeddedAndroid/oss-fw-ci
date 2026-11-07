@@ -59,7 +59,7 @@
         "queue_position": {"type": ["integer", "null"], "minimum": 0},
         "fingerprint": {"type": "string"},
         "bl2": {"type": ["object", "null"], "additionalProperties": false,
-                "properties": {"release": {"type": "string"}, "file": {"type": "string"},
+                "properties": {"secret": {"type": "string"}, "release": {"type": "string"}, "file": {"type": "string"},
                                "sha256": {"$ref": "#/$defs/sha256"}, "fingerprint": {"type": "string"}}},
         "builds": {"type": "object", "description": "per component: fingerprint, sha256 of its images, warnings",
                    "additionalProperties": {"type": "object"}},

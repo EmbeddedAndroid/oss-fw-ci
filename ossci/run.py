@@ -69,7 +69,7 @@ def new(a):
         b = all_boards[n]
         targets.append({"board": n, "device_type": b["lava"]["device_type"], "state": "building",
                         "fingerprint": gate.run_fingerprint(m.group(1), m.group(2), n),
-                        "bl2": {k: b["bl2"][k] for k in ("release", "file", "sha256", "fingerprint")}})
+                        "bl2": {k: b["bl2"][k] for k in ("secret", "file", "sha256", "fingerprint")}})
     doc = {"schema": "ossci-run/1",
            "run": {"id": a.id, "kind": a.kind, "title": a.title or "", "requester": a.requester or "",
                    "created": schema.now(), "updated": schema.now(), "ci_url": a.ci_url,

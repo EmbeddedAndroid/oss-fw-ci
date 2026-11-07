@@ -31,7 +31,8 @@ two files; the dashboard reads nothing else.
     `testing`, `done`, `skipped`, `error`, `cancelled`), `state_detail`
     (why, for the last three), `queue_position`;
   - `fingerprint` (`ossci-<run>-<attempt>-<board>`) and `bl2` (the pinned
-    image: release, file, sha256, fingerprint);
+    image: the secret it comes from, file, sha256, fingerprint; documents
+    before 2026-11-07 name the private-store `release` instead);
   - `builds`: per component the fingerprint, commit, sha256 of its images
     and its warnings count; `package` (file, sha256, size);
   - `lava`: job id, link, device, health;
