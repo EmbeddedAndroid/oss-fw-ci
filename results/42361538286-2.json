@@ -6,12 +6,12 @@
   "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
   "requester": "oss-fw-ci-agent",
   "created": "2026-11-07T13:47:56Z",
-  "updated": "2026-11-07T13:47:56Z",
+  "updated": "2026-11-07T14:27:01Z",
   "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42361538286",
   "driver": "workflow",
   "baseline": null
  },
- "state": "building",
+ "state": "done",
  "inputs": {
   "tfa": {
    "repo": "https://github.com/EmbeddedAndroid/arm-trusted-firmware",
@@ -71,20 +71,34 @@
     "revision": "953c16912391d000e413468cb8a631d5d7ff627f",
     "reason": "manifests/common.xml leaves optee_test on master while kodiak.xml pins optee_os 9bcaec96 (2026-09-09); optee_test 00d4f0e (2026-11-02, regression 1047 ASLR test) needs PTA_INVOKE_TESTS_CMD_ASLR, which that optee_os lacks, so xtest does not build. 953c169 is the last optee_test commit before the ASLR series."
    }
+  },
+  "fingerprint": "ossci-rootfs-6bd87d78-81c6b8ef-695fe400",
+  "sha256": "72c87188098fda6ca1f056408c009c458a1e8d88638207f22c6f6582e6e8c4d5",
+  "key": "695fe400badaaebf",
+  "makefile": "kodiak.mk",
+  "make_args": [
+   "TEST=y",
+   "QCOM_TESTS=boot-fingerprint boot-handoff cpu-features cpu-hotplug cpufreq-policy kernel-health maxcpus memtest remoteproc-smoke remoteproc-restart fastrpc optee-xtest tee-shm-reclaim alsa-dsp-restart memtester kvm-unit-tests kvm-guest gpu-render video-codec inference suspend-idle",
+   "QCOM_TEST_INFERENCE_MODEL=y"
+  ],
+  "manifest": {
+   "file": "manifests/kodiak.xml",
+   "synced": "manifest-synced.xml"
   }
  },
  "targets": [
   {
    "board": "rb3gen2",
    "device_type": "qcs6490-rb3gen2",
-   "state": "building",
+   "state": "error",
    "fingerprint": "ossci-42361538286-2-rb3gen2",
    "bl2": {
     "secret": "PIN_BL2_RB3GEN2",
     "file": "tz-rb3gen2.mbn",
     "sha256": "29344d7494cc1d718c36f8b728fc6d3c21264de361875d06229260c820dd6fe5",
     "fingerprint": "QCDFP-261102-526"
-   }
+   },
+   "state_detail": "no package was built"
   }
  ]
 }
