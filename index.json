@@ -1,6 +1,6 @@
 {
  "schema": "ossci-index/1",
- "updated": "2026-11-07T15:24:49Z",
+ "updated": "2026-11-07T15:32:21Z",
  "latest_nightly": {},
  "runs": [
   {
@@ -9,7 +9,7 @@
    "title": "baseline: public integration pins, qcom-buildroot main, BL2 from PIN_BL2_RB3GEN2",
    "requester": "oss-fw-ci-agent",
    "created": "2026-11-07T14:46:18Z",
-   "updated": "2026-11-07T15:24:44Z",
+   "updated": "2026-11-07T15:32:18Z",
    "state": "testing",
    "ci_url": "https://github.com/EmbeddedAndroid/oss-fw-ci/actions/runs/42382185992",
    "driver": "workflow",
@@ -52,7 +52,7 @@
    "targets": [
     {
      "board": "rb3gen2",
-     "state": "queued",
+     "state": "testing",
      "state_detail": "",
      "queue_position": null,
      "fingerprint_gate": "not-run",
@@ -62,7 +62,7 @@
       "job_id": 547797,
       "url": "https://lava.infra.foundries.io/scheduler/job/547797",
       "device": "rb3g2-01",
-      "health": null
+      "health": "Unknown"
      },
      "diff": null
     }
