@@ -26,7 +26,10 @@ boards:
         anchor: {name: uefi_ver, start: "SBL1, End", end: "UEFI Total",
                  pattern: "UEFI Ver", value: 6.0.240321.BOOT.MXF.1.0.c1-00085-KODIAKLA-1}
       tags: [display]
-      exclude_devices: ["*-production-*"]
+      # Production boards belong to other teams. rb3g2-02 hangs about
+      # 6.7 s into Linux on the open stack while it passes the lab health
+      # check on stock (~/monza/qcom-dev gate, kodiak section).
+      exclude_devices: ["*-production-*", rb3g2-02]
     tfa:
       make: [PLAT=rb3gen2, SPD=opteed, DEBUG=0]
       # BL31 goes into the FIP; BL2 is the pinned image below.
